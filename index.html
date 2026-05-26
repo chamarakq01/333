@@ -18,22 +18,8 @@ button,div{outline:none;}
 
 /* NAV */
 .nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:999;display:flex;align-items:center;gap:4px;padding:6px 8px;background:var(--s1);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
-.nb{flex:1;height:100%;border:none;border-radius:var(--r2);background:transparent;color:var(--txt2);font-size:clamp(10px,2.8vw,13px);font-weight:700;letter-spacing:.3px;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;position:relative;}
+.nb{flex:1;height:100%;border:none;border-radius:var(--r2);background:transparent;color:var(--txt2);font-size:clamp(10px,2.8vw,13px);font-weight:700;letter-spacing:.3px;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;}
 .nb.on{background:var(--acc);color:#000;box-shadow:0 2px 18px rgba(0,229,176,.35);}
-/* Triple alert badge on nav */
-.nb-badge{
-  position:absolute;top:3px;right:3px;
-  width:8px;height:8px;border-radius:50%;
-  background:#ff1744;
-  box-shadow:0 0 6px rgba(255,23,68,.8);
-  display:none;
-  animation:badgePulse .8s ease-in-out infinite alternate;
-}
-@keyframes badgePulse{
-  from{box-shadow:0 0 4px rgba(255,23,68,.6);}
-  to{box-shadow:0 0 10px rgba(255,23,68,1);}
-}
-.nb.has-alert .nb-badge{display:block;}
 
 /* PAGES */
 .pg{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:var(--gap);flex-direction:column;gap:var(--gap);scrollbar-width:none;}
@@ -241,660 +227,160 @@ button,div{outline:none;}
 .tip-list b{color:var(--txt);}
 
 /* ═══════════════════════════════════════════
-   STATISTICS PAGE — Exact Pragmatic Play Mega Sic Bo
+   STATISTICS PAGE — Pragmatic Play Mega Sic Bo Style
    ═══════════════════════════════════════════ */
-#pg-stats{padding-bottom:30px;gap:0;}
+#pg-stats{padding-bottom:30px;gap:8px;}
 
-/* ── Main stats layout: left roadmap | right dice stats ── */
-.st-main-layout{
-  display:flex;flex-direction:column;gap:0;flex-shrink:0;
+/* ── Top summary % pills ── */
+.st-summary-row{
+  display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0;
 }
-
-/* ── Roadmap card ── */
-.st-roadmap-card{
-  background:#0d0d1a;
-  border:1px solid var(--border);
-  border-radius:var(--r) var(--r) 0 0;
-  padding:10px 10px 0;
-  flex-shrink:0;
-}
-.st-roadmap-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:8px;
-}
-.st-roadmap-title{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);}
-
-/* Tabs — pill style like Mega Sic Bo */
-.st-tabs{
-  display:flex;gap:3px;background:var(--s3);
-  border-radius:20px;padding:3px;
-}
-.st-tab{
-  padding:5px 10px;border:none;background:transparent;
-  color:var(--txt2);font-size:11px;font-weight:800;
-  cursor:pointer;border-radius:14px;transition:all .15s;
-  white-space:nowrap;
-}
-.st-tab.on{background:var(--acc);color:#000;}
-
-/* Legend */
-.rm-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
-.rm-leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--txt2);font-weight:700;}
-.rm-leg-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
-.leg-s{background:#fff;border:1px solid rgba(0,0,0,.3);}
-.leg-b{background:#c8a96e;}
-.leg-o{background:#3a7bd5;}
-.leg-e{background:#e67e22;}
-.leg-t{background:#c0392b;}
-
-/* Roadmap scrollable container */
-.st-roadmap-outer{
-  overflow-x:auto;overflow-y:hidden;
-  scrollbar-width:none;
-  padding:2px 0 8px;
-  width:100%;
-}
-.st-roadmap-outer::-webkit-scrollbar{display:none;}
-
-/* Grid of columns */
-.st-roadmap-grid{
-  display:flex;gap:var(--rm-gap,3px);align-items:flex-start;
-  width:max-content;
-}
-.st-rm-col{display:flex;flex-direction:column;gap:var(--rm-gap,3px);flex-shrink:0;}
-
-/* Bubble — size set dynamically by JS to fill 14 cols */
-.rm-bubble{
-  width:var(--rm-sz,28px);height:var(--rm-sz,28px);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:var(--rm-fs,11px);font-weight:900;
-  border:1.5px solid transparent;
-  flex-shrink:0;letter-spacing:-.2px;line-height:1;
-}
-.rm-small{background:#e8e8e8;color:#111;border-color:rgba(200,200,200,.6);}
-.rm-big{background:#c8a96e;color:#fff;border-color:rgba(180,140,70,.5);}
-.rm-odd{background:#3a7bd5;color:#fff;border-color:rgba(58,123,213,.5);}
-.rm-even{background:#e67e22;color:#fff;border-color:rgba(230,126,34,.4);}
-.rm-triple{
-  background:#c0392b;color:#fff;
-  border-color:rgba(255,60,60,.7);
-  box-shadow:0 0 10px rgba(255,30,30,.5);
-  font-size:clamp(8px,2.2vw,11px)!important;
-}
-
-/* ── Right panel: % stats ── */
-.st-right-panel{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:0 0 var(--r) var(--r);
-  border-top:none;
-  padding:10px;flex-shrink:0;
-}
-
-/* S/B/O/E/T percentage grid — exactly like game's right-side stat panel */
-.st-pct-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
-  margin-bottom:10px;
-}
-.st-pct-cell{
+.st-pill{
+  flex:1;min-width:0;
   background:var(--s2);border:1px solid var(--border);
-  border-radius:var(--r2);padding:7px 3px;text-align:center;
+  border-radius:var(--r2);padding:8px 4px;
+  text-align:center;
 }
-.st-pct-lbl{font-size:8px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
-.st-pct-val{font-size:clamp(13px,3.8vw,17px);font-weight:900;}
-.pct-s{color:#e8e8e8;}.pct-b{color:#c8a96e;}.pct-o{color:#5b9bd5;}.pct-e{color:#e67e22;}.pct-t{color:#e74c3c;}
-.st-pct-lbl.pct-s{color:#aaa;}.st-pct-lbl.pct-b{color:#a08040;}.st-pct-lbl.pct-o{color:#4a7ab0;}.st-pct-lbl.pct-e{color:#b06010;}.st-pct-lbl.pct-t{color:#a03020;}
+.st-pill-lbl{font-size:8px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--txt3);margin-bottom:3px;}
+.st-pill-val{font-size:clamp(13px,4vw,18px);font-weight:900;}
+.pill-s{color:#fff;}
+.pill-b{color:#c8a96e;}
+.pill-o{color:#a0c8ff;}
+.pill-e{color:#ffb347;}
+.pill-t{color:#ff4444;}
 
-/* Dice frequency — 6 dice, horizontal bar */
+/* ── Dice frequency bar section ── */
 .st-dice-section{
   background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r);padding:12px;
-  flex-shrink:0;margin-top:8px;
+  border-radius:var(--r);padding:12px;flex-shrink:0;
 }
-.st-dice-bars{display:flex;flex-direction:column;gap:5px;}
+.st-dice-bars{display:flex;flex-direction:column;gap:6px;}
 .st-dice-bar-row{display:flex;align-items:center;gap:8px;}
+.st-dice-face{
+  width:34px;height:34px;min-width:34px;
+  background:#b71c1c;border-radius:7px;
+  position:relative;flex-shrink:0;
+  box-shadow:0 2px 6px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.dot{
+  width:5px;height:5px;background:#fff;border-radius:50%;position:absolute;
+  box-shadow:0 1px 2px rgba(0,0,0,.4);
+}
+.face-1 .dot:nth-child(1){top:50%;left:50%;transform:translate(-50%,-50%);}
+.face-2 .dot:nth-child(1){top:24%;left:24%;}
+.face-2 .dot:nth-child(2){bottom:24%;right:24%;}
+.face-3 .dot:nth-child(1){top:20%;left:20%;}
+.face-3 .dot:nth-child(2){top:50%;left:50%;transform:translate(-50%,-50%);}
+.face-3 .dot:nth-child(3){bottom:20%;right:20%;}
+.face-4 .dot:nth-child(1){top:24%;left:24%;}
+.face-4 .dot:nth-child(2){top:24%;right:24%;}
+.face-4 .dot:nth-child(3){bottom:24%;left:24%;}
+.face-4 .dot:nth-child(4){bottom:24%;right:24%;}
+.face-5 .dot:nth-child(1){top:20%;left:20%;}
+.face-5 .dot:nth-child(2){top:20%;right:20%;}
+.face-5 .dot:nth-child(3){top:50%;left:50%;transform:translate(-50%,-50%);}
+.face-5 .dot:nth-child(4){bottom:20%;left:20%;}
+.face-5 .dot:nth-child(5){bottom:20%;right:20%;}
+.face-6 .dot:nth-child(1){top:17%;left:24%;}
+.face-6 .dot:nth-child(2){top:17%;right:24%;}
+.face-6 .dot:nth-child(3){top:50%;left:24%;transform:translateY(-50%);}
+.face-6 .dot:nth-child(4){top:50%;right:24%;transform:translateY(-50%);}
+.face-6 .dot:nth-child(5){bottom:17%;left:24%;}
+.face-6 .dot:nth-child(6){bottom:17%;right:24%;}
 
-/* Die face — exact Mega Sic Bo red dice with white dots */
-.st-die-face{
-  width:26px;height:26px;min-width:26px;
-  background:#c0392b;
-  border-radius:5px;flex-shrink:0;
-  position:relative;overflow:hidden;
-  box-shadow:0 2px 5px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3);
-}
-/* Dots inside die face */
-.st-die-face .dp{
-  position:absolute;width:4px;height:4px;
-  background:#fff;border-radius:50%;
-  box-shadow:0 1px 1px rgba(0,0,0,.3);
-}
-.st-dice-bar-track{flex:1;height:15px;background:var(--s3);border-radius:4px;overflow:hidden;}
-.st-dice-bar-fill{
-  height:100%;border-radius:4px;
-  display:flex;align-items:center;padding-left:6px;
-  font-size:10px;font-weight:800;color:#fff;
-  transition:width .6s cubic-bezier(.4,0,.2,1);
-  min-width:28px;background:#c0392b;
-}
-.st-dice-count{font-size:10px;font-weight:700;color:var(--txt2);min-width:26px;text-align:right;}
+.st-dice-bar-track{flex:1;height:18px;background:var(--s3);border-radius:5px;overflow:hidden;position:relative;}
+.st-dice-bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:6px;font-size:11px;font-weight:800;color:#fff;transition:width .6s cubic-bezier(.4,0,.2,1);min-width:30px;}
+.st-dice-count{font-size:11px;font-weight:700;color:var(--txt2);min-width:28px;text-align:right;}
 
-/* ── Streak + summary bottom card ── */
-.st-bottom-row{
-  display:flex;gap:8px;margin-top:8px;flex-shrink:0;
+/* ── Roadmap tabs ── */
+.st-roadmap-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;gap:8px;
+}
+.st-roadmap-title{font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);}
+.st-tabs{display:flex;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border2);}
+.st-tab{padding:8px 14px;border:none;background:transparent;color:var(--txt2);font-size:12px;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.st-tab.on{background:var(--s3);color:var(--txt);}
+
+/* ── Roadmap grid — 6 rows × many cols, scrollable right ── */
+.st-roadmap-outer{
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  padding:4px 0 6px;flex-shrink:0;
+}
+.st-roadmap-outer::-webkit-scrollbar{display:none;}
+.st-roadmap-grid{
+  display:flex;gap:4px;
+  align-items:flex-start;
+}
+.st-rm-col{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+
+/* Roadmap bubble */
+.rm-bubble{
+  width:clamp(32px,9vw,40px);height:clamp(32px,9vw,40px);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(10px,3vw,13px);font-weight:900;
+  border:2px solid rgba(255,255,255,.15);
+  flex-shrink:0;
+}
+/* Small = white circle */
+.rm-small{background:#fff;color:#111;border-color:rgba(0,0,0,.15);}
+/* Big = gold circle */
+.rm-big{background:#c8a96e;color:#fff;border-color:rgba(200,169,110,.4);}
+/* Odd = blue-grey */
+.rm-odd{background:#546e7a;color:#fff;border-color:rgba(84,110,122,.5);}
+/* Even = amber */
+.rm-even{background:#f57c00;color:#fff;border-color:rgba(245,124,0,.4);}
+/* Triple = red, glowing */
+.rm-triple{
+  background:#c0392b!important;color:#fff!important;
+  border-color:rgba(255,50,50,.6)!important;
+  box-shadow:0 0 12px rgba(255,30,30,.5);
+  font-size:clamp(9px,2.5vw,11px)!important;
+}
+
+/* Legend row */
+.rm-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.rm-leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--txt2);font-weight:700;}
+.rm-leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.leg-s{background:#fff;border:1px solid rgba(0,0,0,.2);}
+.leg-b{background:#c8a96e;}
+.leg-o{background:#546e7a;}
+.leg-e{background:#f57c00;}
+.leg-t{background:#c0392b;}
+
+/* ── Streak tracker ── */
+.st-streak-wrap{
+  display:flex;gap:6px;flex-wrap:wrap;
 }
 .st-streak-box{
-  flex:1;background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r);padding:10px 8px;text-align:center;
+  flex:1;min-width:80px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:10px 8px;text-align:center;
 }
-.st-streak-lbl{font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--txt3);margin-bottom:3px;}
-.st-streak-val{font-size:clamp(18px,5vw,24px);font-weight:900;line-height:1.1;}
+.st-streak-lbl{font-size:8px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--txt3);margin-bottom:4px;}
+.st-streak-val{font-size:22px;font-weight:900;}
 .st-streak-sub{font-size:10px;color:var(--txt2);font-weight:600;margin-top:2px;}
 
-/* ── Recent results strip (bottom bar like game UI) ── */
-.st-recent-wrap{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r);padding:8px 10px;
-  flex-shrink:0;margin-top:8px;
-}
+/* ── Recent 20 results strip ── */
 .st-recent-strip{
-  display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:2px 0;
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;
+  padding:4px 0;flex-shrink:0;
 }
 .st-recent-strip::-webkit-scrollbar{display:none;}
 .st-recent-item{
-  display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;
 }
 .st-recent-sum{
-  width:clamp(32px,9vw,40px);height:clamp(32px,9vw,40px);
-  border-radius:7px;display:flex;align-items:center;justify-content:center;
-  font-size:clamp(12px,3.5vw,15px);font-weight:900;
-  border:1.5px solid rgba(255,255,255,.1);
+  width:clamp(34px,9.5vw,42px);height:clamp(34px,9.5vw,42px);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(13px,3.8vw,16px);font-weight:900;
+  border:1.5px solid rgba(255,255,255,.12);
 }
-.rs-s{background:rgba(232,232,232,.18);color:#e8e8e8;}
-.rs-b{background:rgba(200,169,110,.22);color:#c8a96e;}
-.rs-t{background:rgba(192,57,43,.28);color:#ff6060;}
-.rs-o{background:rgba(58,123,213,.22);color:#5b9bd5;}
-.rs-e{background:rgba(230,126,34,.22);color:#e67e22;}
-.st-recent-lbl{font-size:8px;color:var(--txt3);font-weight:700;}
-
-/* ═══ TRIPLE ALERT POPUP ═══ */
-.triple-alert-overlay{
-  position:fixed;inset:0;z-index:9800;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s;
-}
-.triple-alert-overlay.show{opacity:1;pointer-events:all;}
-
-.triple-alert-box{
-  width:100%;max-width:320px;
-  background:linear-gradient(145deg,#1a0505,#2d0808);
-  border:2px solid rgba(231,76,60,.6);
-  border-radius:18px;
-  padding:28px 20px 22px;
-  text-align:center;
-  box-shadow:0 0 40px rgba(231,76,60,.4),0 0 80px rgba(231,76,60,.15);
-  transform:scale(.88);
-  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
-}
-.triple-alert-overlay.show .triple-alert-box{transform:scale(1);}
-
-/* Pulsing dice icons */
-.ta-dice-row{
-  display:flex;justify-content:center;gap:10px;margin-bottom:16px;
-}
-.ta-die{
-  width:44px;height:44px;
-  background:linear-gradient(135deg,#c0392b,#e74c3c);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;
-  box-shadow:0 0 16px rgba(231,76,60,.6);
-  animation:taDicePulse 1s ease-in-out infinite alternate;
-}
-@keyframes taDicePulse{
-  from{box-shadow:0 0 10px rgba(231,76,60,.5);transform:scale(1);}
-  to{box-shadow:0 0 28px rgba(231,76,60,.9),0 0 50px rgba(231,76,60,.3);transform:scale(1.06);}
-}
-.ta-die:nth-child(2){animation-delay:.18s;}
-.ta-die:nth-child(3){animation-delay:.36s;}
-
-.ta-title{
-  font-size:22px;font-weight:900;
-  color:#ff4444;letter-spacing:.5px;
-  text-shadow:0 0 20px rgba(255,68,68,.7);
-  margin-bottom:6px;
-  animation:taGlow 1.2s ease-in-out infinite alternate;
-}
-@keyframes taGlow{
-  from{text-shadow:0 0 12px rgba(255,68,68,.5);}
-  to{text-shadow:0 0 30px rgba(255,68,68,1),0 0 60px rgba(255,68,68,.4);}
-}
-.ta-sub{font-size:13px;color:rgba(255,180,180,.75);margin-bottom:18px;line-height:1.5;}
-.ta-info{
-  background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);
-  border-radius:10px;padding:10px 12px;margin-bottom:18px;
-  font-size:12px;color:rgba(255,200,200,.8);line-height:1.6;
-}
-.ta-info b{color:#ff8080;}
-.ta-close{
-  width:100%;padding:13px;border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#c0392b,#e74c3c);
-  color:#fff;font-size:15px;font-weight:900;letter-spacing:.5px;
-  cursor:pointer;
-  box-shadow:0 4px 18px rgba(192,57,43,.5);
-  transition:transform .1s,box-shadow .1s;
-}
-.ta-close:active{transform:scale(.96);box-shadow:0 2px 8px rgba(192,57,43,.3);}
-
-/* ═══ AI ANALYSIS PAGE ═══ */
-#pg-ai{padding-bottom:30px;gap:10px;}
-
-.ai-hero{
-  background:linear-gradient(135deg,rgba(124,106,255,.12),rgba(0,229,176,.08));
-  border:1px solid rgba(124,106,255,.3);
-  border-radius:var(--r);padding:14px;flex-shrink:0;
-  display:flex;align-items:center;gap:12px;
-}
-.ai-hero-icon{
-  width:48px;height:48px;min-width:48px;
-  background:linear-gradient(135deg,#7c6aff,#00e5b0);
-  border-radius:12px;display:flex;align-items:center;
-  justify-content:center;font-size:24px;
-  box-shadow:0 4px 16px rgba(124,106,255,.4);
-}
-.ai-hero-text{}
-.ai-hero-title{font-size:16px;font-weight:900;color:var(--txt);margin-bottom:3px;}
-.ai-hero-sub{font-size:11px;color:var(--txt2);line-height:1.5;}
-
-/* Data snapshot bar */
-.ai-snapshot{
-  display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0;
-}
-.ai-snap-item{
-  flex:1;min-width:60px;
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:var(--r2);padding:7px 5px;text-align:center;
-}
-.ai-snap-lbl{font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--txt3);margin-bottom:2px;}
-.ai-snap-val{font-size:clamp(13px,3.8vw,16px);font-weight:900;color:var(--acc);}
-
-/* Analysis type selector */
-.ai-type-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:7px;flex-shrink:0;
-}
-.ai-type-btn{
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:var(--r2);padding:11px 8px;
-  text-align:left;cursor:pointer;
-  transition:all .15s;
-  display:flex;gap:8px;align-items:flex-start;
-}
-.ai-type-btn.sel{
-  background:rgba(124,106,255,.15);
-  border-color:rgba(124,106,255,.5);
-}
-.ai-type-btn:active{transform:scale(.97);}
-.ai-type-icon{font-size:18px;line-height:1;margin-top:1px;}
-.ai-type-body{}
-.ai-type-name{font-size:12px;font-weight:800;color:var(--txt);margin-bottom:2px;}
-.ai-type-desc{font-size:10px;color:var(--txt2);line-height:1.4;}
-
-/* Run button */
-.ai-run-btn{
-  width:100%;padding:15px;border:none;
-  border-radius:var(--r);
-  background:linear-gradient(135deg,#7c6aff,#5a4fcf);
-  color:#fff;font-size:15px;font-weight:900;letter-spacing:.5px;
-  cursor:pointer;flex-shrink:0;
-  box-shadow:0 4px 20px rgba(124,106,255,.4);
-  transition:transform .1s,box-shadow .1s,opacity .15s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.ai-run-btn:active{transform:scale(.97);}
-.ai-run-btn:disabled{opacity:.5;pointer-events:none;}
-
-/* Loading state */
-.ai-loading{
-  display:none;flex-direction:column;align-items:center;
-  gap:12px;padding:30px 0;flex-shrink:0;
-}
-.ai-loading.on{display:flex;}
-.ai-spinner{
-  width:40px;height:40px;
-  border:3px solid rgba(124,106,255,.2);
-  border-top-color:#7c6aff;
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-.ai-loading-text{font-size:13px;color:var(--txt2);font-weight:600;}
-.ai-loading-dots::after{
-  content:'';animation:dots 1.2s steps(4,end) infinite;
-}
-@keyframes dots{
-  0%{content:'';}25%{content:'.';}50%{content:'..';}75%{content:'...';}
-}
-
-/* Result card */
-.ai-result{
-  background:var(--s1);border:1px solid rgba(124,106,255,.25);
-  border-radius:var(--r);padding:14px;flex-shrink:0;
-  display:none;
-}
-.ai-result.on{display:block;}
-.ai-result-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:12px;padding-bottom:10px;
-  border-bottom:1px solid var(--border);
-}
-.ai-result-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--acc2);}
-.ai-result-rounds{font-size:10px;color:var(--txt3);font-weight:600;}
-.ai-result-body{font-size:13px;color:var(--txt);line-height:1.75;}
-
-/* Markdown-like styling inside result */
-.ai-result-body .ai-h{font-size:14px;font-weight:900;color:var(--acc);margin:12px 0 5px;}
-.ai-result-body .ai-h:first-child{margin-top:0;}
-.ai-result-body .ai-b{font-weight:800;color:var(--txt);}
-.ai-result-body .ai-hi{color:var(--acc4);font-weight:700;}
-.ai-result-body .ai-red{color:#ff6b6b;font-weight:700;}
-.ai-result-body .ai-green{color:#00e676;font-weight:700;}
-.ai-result-body .ai-sep{border:none;border-top:1px solid var(--border);margin:10px 0;}
-.ai-result-body ul{padding-left:16px;margin:5px 0;}
-.ai-result-body li{margin-bottom:4px;}
-
-/* Bet suggestions box */
-.ai-bets-box{
-  background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.2);
-  border-radius:var(--r2);padding:12px;margin-top:10px;
-}
-.ai-bets-title{font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--acc);margin-bottom:8px;}
-.ai-bets-chips{display:flex;flex-wrap:wrap;gap:6px;}
-.ai-bet-chip{
-  background:rgba(0,229,176,.15);border:1px solid rgba(0,229,176,.35);
-  border-radius:8px;padding:6px 12px;
-  font-size:14px;font-weight:900;color:var(--acc);
-}
-
-.ai-error{
-  background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);
-  border-radius:var(--r2);padding:12px;
-  font-size:12px;color:#ff8888;line-height:1.6;
-  display:none;
-}
-.ai-error.on{display:block;}
-
-/* ═══ ADJACENT SIGNAL POPUP ═══ */
-.sig-overlay{
-  position:fixed;inset:0;z-index:9700;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:0 0 0 0;
-  opacity:0;pointer-events:none;
-  transition:opacity .2s;
-}
-.sig-overlay.show{opacity:1;pointer-events:all;}
-
-.sig-box{
-  width:100%;max-width:480px;
-  background:linear-gradient(160deg,#0d1f2d,#0a1520);
-  border:2px solid rgba(0,229,176,.35);
-  border-bottom:none;
-  border-radius:20px 20px 0 0;
-  padding:16px 16px 28px;
-  transform:translateY(100%);
-  transition:transform .3s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 -8px 40px rgba(0,0,0,.6),0 0 60px rgba(0,229,176,.08);
-}
-.sig-overlay.show .sig-box{transform:translateY(0);}
-
-.sig-handle{
-  width:36px;height:4px;background:rgba(255,255,255,.15);
-  border-radius:2px;margin:0 auto 14px;
-}
-.sig-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:12px;
-}
-.sig-title-wrap{display:flex;align-items:center;gap:8px;}
-.sig-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--acc);
-  box-shadow:0 0 8px var(--acc);
-  animation:sigPulse .7s ease-in-out infinite alternate;
-  flex-shrink:0;
-}
-@keyframes sigPulse{
-  from{box-shadow:0 0 4px var(--acc);}
-  to{box-shadow:0 0 14px var(--acc),0 0 28px rgba(0,229,176,.3);}
-}
-.sig-title{font-size:13px;font-weight:900;color:var(--acc);letter-spacing:.3px;}
-.sig-close-btn{
-  width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);
-  background:var(--s3);color:var(--txt2);font-size:14px;font-weight:900;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-
-/* Last result row */
-.sig-last-row{
-  display:flex;align-items:center;gap:8px;margin-bottom:12px;
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:10px;padding:8px 10px;
-}
-.sig-last-lbl{font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;}
-.sig-last-num{
-  font-size:22px;font-weight:900;color:var(--acc);
-  background:rgba(0,229,176,.1);border:1px solid rgba(0,229,176,.3);
-  border-radius:8px;width:40px;height:40px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.sig-last-info{flex:1;}
-.sig-last-sb{font-size:11px;color:var(--txt2);font-weight:700;}
-.sig-conf-bar-wrap{margin-top:3px;}
-.sig-conf-bar-track{height:5px;background:var(--s3);border-radius:3px;overflow:hidden;}
-.sig-conf-bar-fill{height:100%;border-radius:3px;background:var(--acc);transition:width .5s;}
-
-/* Suggested numbers */
-.sig-nums-lbl{font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;}
-.sig-nums-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
-.sig-num{
-  flex:1;min-width:44px;max-width:60px;
-  height:52px;
-  border-radius:12px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:2px;
-  border:2px solid;
-  cursor:pointer;transition:transform .1s;
-  -webkit-user-select:none;
-}
-.sig-num:active{transform:scale(.93);}
-.sig-num-val{font-size:18px;font-weight:900;line-height:1;}
-.sig-num-pct{font-size:9px;font-weight:700;opacity:.8;}
-
-/* Confidence levels */
-.sig-lv3{background:rgba(0,229,176,.18);border-color:rgba(0,229,176,.6);color:var(--acc);}
-.sig-lv2{background:rgba(255,179,0,.12);border-color:rgba(255,179,0,.5);color:var(--acc4);}
-.sig-lv1{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:var(--txt2);}
-
-/* Logic explanation */
-.sig-why{
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:10px;padding:9px 10px;
-  font-size:11px;color:var(--txt2);line-height:1.6;
-  margin-bottom:12px;
-}
-.sig-why b{color:var(--txt);font-weight:700;}
-
-/* Strength meter */
-.sig-strength-row{
-  display:flex;align-items:center;gap:8px;
-  margin-bottom:12px;
-}
-.sig-strength-lbl{font-size:10px;font-weight:700;color:var(--txt3);white-space:nowrap;}
-.sig-strength-track{flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden;}
-.sig-strength-fill{height:100%;border-radius:4px;transition:width .5s;}
-.sig-strength-val{font-size:11px;font-weight:800;white-space:nowrap;}
-
-/* Input page signal card */
-.sig-card{
-  background:linear-gradient(135deg,rgba(0,229,176,.06),rgba(0,229,176,.02));
-  border:1px solid rgba(0,229,176,.25);
-  border-radius:var(--r);padding:10px 12px;
-  flex-shrink:0;display:none;
-}
-.sig-card.on{display:block;}
-.sig-card-title{
-  font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
-  color:var(--acc);margin-bottom:8px;display:flex;align-items:center;gap:6px;
-}
-.sig-card-dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:sigPulse .7s ease-in-out infinite alternate;}
-.sig-inline-nums{display:flex;gap:5px;flex-wrap:wrap;}
-.sig-inline-num{
-  background:rgba(0,229,176,.12);border:1px solid rgba(0,229,176,.3);
-  border-radius:8px;padding:5px 10px;
-  font-size:15px;font-weight:900;color:var(--acc);
-}
-.sig-inline-num.gold{background:rgba(255,179,0,.12);border-color:rgba(255,179,0,.4);color:var(--acc4);}
-
-/* ═══ SIGNAL TRACKER PAGE ═══ */
-#pg-track{padding-bottom:30px;gap:8px;}
-
-/* Summary chips */
-.trk-summary{display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0;}
-.trk-chip{
-  flex:1;min-width:60px;
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:var(--r2);padding:8px 5px;text-align:center;
-}
-.trk-chip-lbl{font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--txt3);margin-bottom:2px;}
-.trk-chip-val{font-size:clamp(14px,4vw,18px);font-weight:900;}
-
-/* Bet input row */
-.trk-controls{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r);padding:12px;flex-shrink:0;
-  display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;
-}
-.trk-field{display:flex;flex-direction:column;gap:3px;}
-.trk-field label{font-size:9px;font-weight:700;letter-spacing:.7px;color:var(--txt3);text-transform:uppercase;}
-.trk-field input{
-  background:var(--s2);color:var(--txt);
-  border:1px solid var(--border2);border-radius:var(--r2);
-  padding:8px 10px;font-size:15px;font-weight:700;
-  width:90px;-webkit-appearance:none;
-}
-.trk-field input:focus{outline:none;border-color:var(--acc);}
-.trk-place-btn{
-  flex:1;min-width:80px;padding:10px 12px;border:none;
-  border-radius:var(--r2);
-  background:linear-gradient(135deg,var(--acc),#00b894);
-  color:#000;font-size:13px;font-weight:900;letter-spacing:.4px;
-  cursor:pointer;
-  box-shadow:0 3px 14px rgba(0,229,176,.3);
-  transition:transform .1s,opacity .15s;
-  display:flex;align-items:center;justify-content:center;gap:5px;
-}
-.trk-place-btn:active{transform:scale(.96);}
-.trk-place-btn:disabled{opacity:.4;pointer-events:none;}
-.trk-clear-btn{
-  padding:10px 12px;border:1px solid rgba(255,107,107,.3);
-  border-radius:var(--r2);background:rgba(255,107,107,.08);
-  color:var(--acc3);font-size:12px;font-weight:800;cursor:pointer;
-  white-space:nowrap;
-}
-.trk-clear-btn:active{opacity:.7;}
-
-/* Current signal preview */
-.trk-signal-preview{
-  background:linear-gradient(135deg,rgba(0,229,176,.07),rgba(124,106,255,.05));
-  border:1px solid rgba(0,229,176,.25);
-  border-radius:var(--r);padding:12px;flex-shrink:0;
-}
-.trk-sig-header{
-  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
-}
-.trk-sig-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--acc);}
-.trk-sig-round{font-size:10px;color:var(--txt3);}
-.trk-sig-nums{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
-.trk-sig-num{
-  width:40px;height:40px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:900;flex-shrink:0;
-}
-.tsn-top{background:rgba(0,229,176,.2);border:2px solid rgba(0,229,176,.6);color:var(--acc);}
-.tsn-hi{background:rgba(255,179,0,.15);border:1.5px solid rgba(255,179,0,.4);color:var(--acc4);}
-.tsn-norm{background:var(--s2);border:1px solid var(--border);color:var(--txt2);}
-.trk-sig-meta{font-size:11px;color:var(--txt2);display:flex;gap:10px;flex-wrap:wrap;}
-.trk-sig-meta b{color:var(--txt);}
-
-/* Pending bet (placed, waiting for result) */
-.trk-pending{
-  background:rgba(255,179,0,.06);border:1px solid rgba(255,179,0,.3);
-  border-radius:var(--r);padding:12px;flex-shrink:0;display:none;
-}
-.trk-pending.on{display:block;}
-.trk-pending-title{
-  font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;
-  color:var(--acc4);margin-bottom:10px;
-  display:flex;align-items:center;gap:6px;
-}
-.trk-pending-dot{width:7px;height:7px;border-radius:50%;background:var(--acc4);animation:sigPulse .7s infinite alternate;}
-.trk-pending-info{font-size:13px;color:var(--txt);margin-bottom:10px;line-height:1.6;}
-.trk-pending-nums{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.trk-pnum{
-  background:rgba(255,179,0,.15);border:1px solid rgba(255,179,0,.35);
-  border-radius:8px;padding:5px 10px;
-  font-size:14px;font-weight:900;color:var(--acc4);
-}
-.trk-result-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.trk-win-btn{
-  padding:13px;border:1px solid rgba(0,229,176,.4);border-radius:var(--r2);
-  background:rgba(0,229,176,.15);color:var(--acc);
-  font-size:14px;font-weight:900;cursor:pointer;transition:opacity .15s;
-}
-.trk-loss-btn{
-  padding:13px;border:1px solid rgba(255,107,107,.4);border-radius:var(--r2);
-  background:rgba(255,107,107,.12);color:var(--acc3);
-  font-size:14px;font-weight:900;cursor:pointer;transition:opacity .15s;
-}
-.trk-win-btn:active,.trk-loss-btn:active{opacity:.7;}
-
-/* History table */
-.trk-hist-wrap{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;flex-shrink:0;
-}
-.trk-hist-header{
-  padding:10px 12px;background:var(--s2);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.trk-hist-title{font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);}
-.trk-tbl{width:100%;border-collapse:collapse;font-size:clamp(10px,2.8vw,12px);}
-.trk-tbl th{
-  padding:8px 5px;text-align:center;
-  font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
-  color:var(--txt2);border-bottom:1px solid var(--border);
-  background:var(--s2);
-}
-.trk-tbl td{padding:7px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.04);}
-.trk-tbl tr:last-child td{border-bottom:none;}
-.trk-tbl tr.trk-w td{color:#00e676;}
-.trk-tbl tr.trk-l td{color:#ff6b6b;}
-.trk-tbl tr.trk-new{background:rgba(0,229,176,.05);}
-
-/* ROI bar */
-.trk-roi-bar{
-  background:var(--s2);border:1px solid var(--border);
-  border-radius:var(--r2);padding:10px 12px;
-  display:flex;align-items:center;gap:10px;
-}
-.trk-roi-lbl{font-size:10px;font-weight:700;color:var(--txt3);white-space:nowrap;}
-.trk-roi-track{flex:1;height:10px;background:var(--s3);border-radius:5px;overflow:hidden;}
-.trk-roi-fill{height:100%;border-radius:5px;transition:width .5s,background .3s;}
-.trk-roi-val{font-size:13px;font-weight:900;white-space:nowrap;}
+.rs-s{background:rgba(255,255,255,.15);color:#fff;}
+.rs-b{background:rgba(200,169,110,.25);color:#c8a96e;}
+.rs-t{background:rgba(192,57,43,.3);color:#ff6b6b;}
+.st-recent-dice{font-size:9px;color:var(--txt3);font-weight:700;letter-spacing:.5px;}
 </style>
 </head>
 <body>
@@ -903,11 +389,10 @@ button,div{outline:none;}
 <nav class="nav">
   <button class="nb on"  id="nb-inp"   onclick="goTo('inp')">Input</button>
   <button class="nb"     id="nb-hist"  onclick="goTo('hist')">History</button>
-  <button class="nb"     id="nb-stats" onclick="goTo('stats')">Stats<span class="nb-badge" id="triple-badge"></span></button>
+  <button class="nb"     id="nb-stats" onclick="goTo('stats')">Stats</button>
   <button class="nb"     id="nb-ana"   onclick="goTo('ana')">Analysis</button>
   <button class="nb"     id="nb-bet"   onclick="goTo('bet')">Bet</button>
-  <button class="nb"     id="nb-track" onclick="goTo('track')">📈 Track</button>
-  <button class="nb"     id="nb-ai"    onclick="goTo('ai')">🤖 AI</button>
+  <button class="nb"     id="nb-how"   onclick="goTo('how')">How</button>
 </nav>
 
 <!-- GLOBAL IMPORT MODAL -->
@@ -981,12 +466,6 @@ button,div{outline:none;}
   <div class="card" id="ana-box">
     <div style="color:var(--txt3);font-size:12px;text-align:center;padding:4px 0;">Waiting for 15 rounds…</div>
   </div>
-  <!-- Signal card — shows after round saved -->
-  <div class="sig-card" id="sig-card">
-    <div class="sig-card-title"><div class="sig-card-dot"></div>SIGNAL — Suggested Next</div>
-    <div class="sig-inline-nums" id="sig-inline-nums"></div>
-  </div>
-
   <div class="card" style="padding:8px 12px;">
     <div class="dice-slots">
       <div class="d-slot" id="ds0" onclick="tapSlot(0)">—</div>
@@ -1037,8 +516,29 @@ button,div{outline:none;}
 <!-- ═══════ STATISTICS ═══════ -->
 <div class="pg" id="pg-stats">
 
-  <!-- ROADMAP CARD (top, scrollable right) -->
-  <div class="st-roadmap-card">
+  <!-- Summary % pills: S B O E T -->
+  <div class="st-summary-row" id="st-summary-row"></div>
+
+  <!-- Recent 20 results strip -->
+  <div class="card" style="padding:10px 10px 8px;">
+    <div class="card-title">Recent Results</div>
+    <div class="st-recent-strip" id="st-recent-strip"></div>
+  </div>
+
+  <!-- Dice face frequency bars -->
+  <div class="st-dice-section">
+    <div class="card-title">Dice Face Frequency</div>
+    <div class="st-dice-bars" id="st-dice-bars"></div>
+  </div>
+
+  <!-- Streak tracker -->
+  <div class="card" style="padding:12px;">
+    <div class="card-title">Current Streaks</div>
+    <div class="st-streak-wrap" id="st-streak-wrap"></div>
+  </div>
+
+  <!-- Roadmap -->
+  <div class="card" style="padding:12px;">
     <div class="st-roadmap-header">
       <div class="st-roadmap-title">Road Map</div>
       <div class="st-tabs">
@@ -1046,30 +546,12 @@ button,div{outline:none;}
         <button class="st-tab"    id="sttab-oe" onclick="stTab('oe')">Odd / Even</button>
       </div>
     </div>
+    <!-- legend -->
     <div class="rm-legend" id="rm-legend"></div>
+    <!-- grid -->
     <div class="st-roadmap-outer">
       <div class="st-roadmap-grid" id="st-roadmap-grid"></div>
     </div>
-  </div>
-
-  <!-- S/B/O/E/T % panel (attached below roadmap) -->
-  <div class="st-right-panel">
-    <div class="st-pct-grid" id="st-pct-grid"></div>
-  </div>
-
-  <!-- Dice face frequency -->
-  <div class="st-dice-section">
-    <div class="card-title">Dice Face Frequency</div>
-    <div class="st-dice-bars" id="st-dice-bars"></div>
-  </div>
-
-  <!-- Streak boxes -->
-  <div class="st-bottom-row" id="st-streak-wrap"></div>
-
-  <!-- Recent results strip -->
-  <div class="st-recent-wrap">
-    <div class="card-title" style="margin-bottom:6px;">Recent Results</div>
-    <div class="st-recent-strip" id="st-recent-strip"></div>
   </div>
 
 </div>
@@ -1112,84 +594,6 @@ button,div{outline:none;}
   </div>
 </div>
 
-<!-- ═══════ SIGNAL TRACKER ═══════ -->
-<div class="pg" id="pg-track">
-
-  <!-- Summary -->
-  <div class="trk-summary" id="trk-summary">
-    <div class="trk-chip"><div class="trk-chip-lbl">Signals</div><div class="trk-chip-val" id="trk-tot">0</div></div>
-    <div class="trk-chip"><div class="trk-chip-lbl">Wins</div><div class="trk-chip-val" style="color:#00e676" id="trk-wins">0</div></div>
-    <div class="trk-chip"><div class="trk-chip-lbl">Losses</div><div class="trk-chip-val" style="color:#ff6b6b" id="trk-loss">0</div></div>
-    <div class="trk-chip"><div class="trk-chip-lbl">Win%</div><div class="trk-chip-val" style="color:var(--acc)" id="trk-wpct">—</div></div>
-    <div class="trk-chip"><div class="trk-chip-lbl">Net</div><div class="trk-chip-val" id="trk-net">—</div></div>
-  </div>
-
-  <!-- ROI bar -->
-  <div class="trk-roi-bar">
-    <div class="trk-roi-lbl">Signal Accuracy</div>
-    <div class="trk-roi-track"><div class="trk-roi-fill" id="trk-roi-fill" style="width:0%;background:var(--acc)"></div></div>
-    <div class="trk-roi-val" id="trk-roi-val">—</div>
-  </div>
-
-  <!-- Settings row -->
-  <div class="trk-controls">
-    <div class="trk-field">
-      <label>Bet Amount</label>
-      <input id="trk-bet-amt" type="number" value="100" min="1" onchange="trkSaveSettings()">
-    </div>
-    <div class="trk-field">
-      <label>Start Balance</label>
-      <input id="trk-balance" type="number" value="10000" min="0" onchange="trkSaveSettings()">
-    </div>
-    <button class="trk-clear-btn" onclick="trkClearAll()">🗑 Clear</button>
-  </div>
-
-  <!-- Current signal — auto updates -->
-  <div class="trk-signal-preview" id="trk-signal-preview">
-    <div class="trk-sig-header">
-      <div class="trk-sig-title">📡 Next Round Signal</div>
-      <div class="trk-sig-round" id="trk-sig-round">Round #—</div>
-    </div>
-    <div class="trk-sig-nums" id="trk-sig-nums">
-      <div style="color:var(--txt3);font-size:12px;">Data enter කරන්න (20+ rounds)…</div>
-    </div>
-    <div class="trk-sig-meta" id="trk-sig-meta"></div>
-    <div style="font-size:10px;color:var(--txt3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-      ⚡ Next round enter කළ ගමන් auto W/L calculate වෙනවා
-    </div>
-  </div>
-
-  <!-- Last resolved result flash -->
-  <div id="trk-last-result" style="display:none;border-radius:var(--r);padding:12px;text-align:center;flex-shrink:0;transition:all .3s;"></div>
-
-  <!-- History -->
-  <div class="trk-hist-wrap">
-    <div class="trk-hist-header">
-      <div class="trk-hist-title">Signal Bet History</div>
-      <div style="font-size:10px;color:var(--txt3);" id="trk-hist-count">0 bets</div>
-    </div>
-    <div style="overflow-x:auto;scrollbar-width:none;">
-      <table class="trk-tbl">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Round</th>
-            <th>Predict</th>
-            <th>Bets</th>
-            <th>Actual</th>
-            <th>Stake</th>
-            <th>W/L</th>
-            <th>Net</th>
-            <th>Bal</th>
-          </tr>
-        </thead>
-        <tbody id="trk-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-
-</div>
-
 <!-- ═══════ HOW IT WORKS ═══════ -->
 <div class="pg" id="pg-how">
   <div class="how-hero">
@@ -1230,7 +634,7 @@ button,div{outline:none;}
         Pragmatic Play Mega Sic Bo ම use කරන road map logic:<br><br>
         • <b>Small (S)</b>: Sum 4–10 (Triple නොවූ)<br>
         • <b>Big (B)</b>: Sum 11–17 (Triple නොවූ)<br>
-        • <b>Triple (T)</b>: Always its own column — Red bubble, separate from S/B<br>
+        • <b>Triple (T)</b>: ඒ column ම, Triple → previous side inherit කරයි<br>
         • Same result → column down (max <b>6 rows</b>)<br>
         • Result change → next column<br>
         • Oldest result top-left, newest right
@@ -1324,7 +728,6 @@ function saveRound(){
   history.unshift([...cur]);
   localStorage.setItem('h',JSON.stringify(history));
   cur=[];updateSlots();bridge();refreshAll();liveCompute();
-  // tripleAlertShown managed by checkTripleAlert
 }
 function tapSlot(idx){if(cur[idx]===undefined)return;cur.splice(idx,1);updateSlots();}
 
@@ -1377,11 +780,6 @@ function bridge(){
 /* ═══ REFRESH ALL ═══ */
 function refreshAll(){
   renderMini();renderAna();renderSumDist();renderStats();renderFullHist();renderPat();renderStatistics();updateImportInfo();
-  triggerTripleCheck();
-  renderSignal();
-  renderAiSnapshot();renderPrediction();
-  trkAutoCheck();
-  triggerMlCheck();
 }
 
 /* ═══ MINI HISTORY ═══ */
@@ -1485,13 +883,7 @@ function mergeImport(sums){
   let imported=sums.map(s=>sumToDice(s));
   history=[...history,...imported];
   localStorage.setItem('h',JSON.stringify(history));
-  bridge();
-
-  // Replay all history through signal tracker
-  // This calculates W/L for every round where signal was possible
-  trkReplayAll();
-
-  refreshAll();liveCompute();
+  bridge();refreshAll();liveCompute();
   toast(`✓ Imported ${sums.length} rounds → total: ${history.length}`,'ok');
 }
 function doImportPaste(){
@@ -1697,45 +1089,54 @@ function getSum(r){return r[0]+r[1]+r[2];}
 function isSmall(r){return getSum(r)<=10;}
 function isOdd(r){return getSum(r)%2===1;}
 
-/* Build road map columns — EXACT Pragmatic Play Mega Sic Bo rule:
-   S, B, T are ALL separate types. Triple always = new column.
-   Official: "Results of same type → column down. Different type → new column."
+/* Build road map columns — exact Pragmatic Play logic:
+   - 6 rows max per column
+   - Triple inherits previous side (goes in same column)
+   - Side change → new column
 */
 function buildRoadmapCols(mode){
   const MAX_ROWS=6;
   const ordered=history.slice().reverse(); // oldest first
   const cols=[];
-  let curType=null;
+  let curSide=null;
+
   ordered.forEach(r=>{
-    const tri=isTriple(r);
-    const type=tri?'T':(mode==='sb'?(isSmall(r)?'S':'B'):(isOdd(r)?'O':'E'));
-    const lastCol=cols[cols.length-1];
-    if(!lastCol||type!==curType||lastCol.length>=MAX_ROWS){
-      cols.push([{r,type}]);
+    const triple=isTriple(r);
+    let rawSide;
+    if(triple){
+      rawSide='T';
+    } else if(mode==='sb'){
+      rawSide=isSmall(r)?'S':'B';
     } else {
-      lastCol.push({r,type});
+      rawSide=isOdd(r)?'O':'E';
     }
-    curType=type;
+    // Triple inherits current column's side
+    const effectiveSide=(triple&&curSide)?curSide:rawSide;
+    const lastCol=cols[cols.length-1];
+
+    if(!lastCol||effectiveSide!==curSide||lastCol.length>=MAX_ROWS){
+      cols.push([{r,side:rawSide,effectiveSide}]);
+    } else {
+      lastCol.push({r,side:rawSide,effectiveSide});
+    }
+    curSide=effectiveSide;
   });
   return cols;
 }
 
 /* Dice face SVG dots */
-/* Dot positions as % of 26px die — 4px dot, margin ~15% from edge */
-function makeDieFace(n){
-  // positions: [top%, left%] — dot center as % of die size
-  const pos={
+function makeDieFaceDots(n){
+  const dotPos={
     1:[[50,50]],
-    2:[[22,22],[78,78]],
-    3:[[22,22],[50,50],[78,78]],
-    4:[[22,22],[22,78],[78,22],[78,78]],
-    5:[[22,22],[22,78],[50,50],[78,22],[78,78]],
-    6:[[22,22],[22,78],[50,22],[50,78],[78,22],[78,78]]
+    2:[[25,25],[75,75]],
+    3:[[25,25],[50,50],[75,75]],
+    4:[[25,25],[75,25],[25,75],[75,75]],
+    5:[[25,25],[75,25],[50,50],[25,75],[75,75]],
+    6:[[25,22],[75,22],[25,50],[75,50],[25,78],[75,78]]
   };
-  const dots=(pos[n]||[]).map(([t,l])=>
-    `<div class="dp" style="top:calc(${t}% - 2px);left:calc(${l}% - 2px)"></div>`
-  ).join('');
-  return `<div class="st-die-face">${dots}</div>`;
+  const positions=dotPos[n]||[];
+  const dots=positions.map(([x,y])=>`<circle cx="${x}%" cy="${y}%" r="8%" fill="white" style="filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))"/>`).join('');
+  return `<svg viewBox="0 0 100 100" style="width:100%;height:100%;">${dots}</svg>`;
 }
 
 /* Compute current streaks */
@@ -1807,10 +1208,13 @@ function renderStatistics(){
 
   /* ── Empty state ── */
   if(!total){
-    const noData='<div style="color:var(--txt3);font-size:12px;padding:8px;text-align:center;">No data yet</div>';
-    ['st-pct-grid','st-recent-strip','st-dice-bars','st-streak-wrap','st-roadmap-grid','rm-legend'].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.innerHTML=id==='st-pct-grid'?noData:'';
-    });
+    document.getElementById('st-summary-row').innerHTML=
+      '<div style="color:var(--txt3);font-size:12px;padding:10px;text-align:center;width:100%">No data yet — enter some rounds first.</div>';
+    document.getElementById('st-recent-strip').innerHTML='';
+    document.getElementById('st-dice-bars').innerHTML='';
+    document.getElementById('st-streak-wrap').innerHTML='';
+    document.getElementById('st-roadmap-grid').innerHTML='';
+    document.getElementById('rm-legend').innerHTML='';
     return;
   }
 
@@ -1830,13 +1234,13 @@ function renderStatistics(){
 
   function pct(c){return total?Math.round(c/total*100):0;}
 
-  /* ── S/B/O/E/T % grid (Pragmatic Play right-panel style) ── */
-  document.getElementById('st-pct-grid').innerHTML=`
-    <div class="st-pct-cell"><div class="st-pct-lbl pct-s">Small</div><div class="st-pct-val pct-s">${pct(sCount)}%</div></div>
-    <div class="st-pct-cell"><div class="st-pct-lbl pct-b">Big</div><div class="st-pct-val pct-b">${pct(bCount)}%</div></div>
-    <div class="st-pct-cell"><div class="st-pct-lbl pct-o">Odd</div><div class="st-pct-val pct-o">${pct(oCount)}%</div></div>
-    <div class="st-pct-cell"><div class="st-pct-lbl pct-e">Even</div><div class="st-pct-val pct-e">${pct(eCount)}%</div></div>
-    <div class="st-pct-cell"><div class="st-pct-lbl pct-t">Triple</div><div class="st-pct-val pct-t">${pct(tCount)}%</div></div>`;
+  /* ── Summary pills: S B O E T ── */
+  document.getElementById('st-summary-row').innerHTML=`
+    <div class="st-pill"><div class="st-pill-lbl">Small</div><div class="st-pill-val pill-s">${pct(sCount)}%</div></div>
+    <div class="st-pill"><div class="st-pill-lbl">Big</div><div class="st-pill-val pill-b">${pct(bCount)}%</div></div>
+    <div class="st-pill"><div class="st-pill-lbl">Odd</div><div class="st-pill-val pill-o">${pct(oCount)}%</div></div>
+    <div class="st-pill"><div class="st-pill-lbl">Even</div><div class="st-pill-val pill-e">${pct(eCount)}%</div></div>
+    <div class="st-pill"><div class="st-pill-lbl">Triple</div><div class="st-pill-val pill-t">${pct(tCount)}%</div></div>`;
 
   /* ── Recent 20 strip ── */
   const recents=history.slice(0,20);
@@ -1855,26 +1259,28 @@ function renderStatistics(){
   const df={1:0,2:0,3:0,4:0,5:0,6:0};
   history.forEach(r=>r.forEach(d=>df[d]++));
   const maxDf=Math.max(...Object.values(df),1);
+  const diceColors={1:'#ef5350',2:'#ff7043',3:'#ffa726',4:'#66bb6a',5:'#26c6da',6:'#ab47bc'};
+
   let diceBarHtml='';
   for(let n=1;n<=6;n++){
     const c=df[n],p=Math.round(c/totalDice*100);
     const w=Math.round(c/maxDf*100);
     diceBarHtml+=`<div class="st-dice-bar-row">
-      ${makeDieFace(n)}
+      <div class="st-dice-face face-${n}" style="background:${diceColors[n]};">${makeDieFaceDots(n)}</div>
       <div class="st-dice-bar-track">
-        <div class="st-dice-bar-fill" style="width:${Math.max(w,6)}%">${p}%</div>
+        <div class="st-dice-bar-fill" style="width:${Math.max(w,8)}%;background:${diceColors[n]};">${p}%</div>
       </div>
       <div class="st-dice-count">${c}×</div>
     </div>`;
   }
-  const dbEl=document.getElementById('st-dice-bars');if(dbEl)dbEl.innerHTML=diceBarHtml;
+  document.getElementById('st-dice-bars').innerHTML=diceBarHtml;
 
   /* ── Streak tracker ── */
   const streaks=computeStreaks();
   const sbColor=streaks.sb.side==='S'?'#fff':streaks.sb.side==='B'?'#c8a96e':'var(--txt3)';
   const oeColor=streaks.oe.side==='O'?'#a0c8ff':streaks.oe.side==='E'?'#ffb347':'var(--txt3)';
 
-  const swEl=document.getElementById('st-streak-wrap');if(swEl)swEl.innerHTML=`
+  document.getElementById('st-streak-wrap').innerHTML=`
     <div class="st-streak-box">
       <div class="st-streak-lbl">S / B Streak</div>
       <div class="st-streak-val" style="color:${sbColor}">${streaks.sb.count||'—'}</div>
@@ -1905,1013 +1311,36 @@ function renderStatistics(){
 }
 
 function renderRoadmap(){
-  const allCols=buildRoadmapCols(stCurrentTab);
-  // Render ALL cols; default view shows last 14 (scroll left for older)
-  const SHOW=14, GAP=3;
-
-  // Compute bubble size so exactly 14 cols fill the container width
-  const outer=document.getElementById('st-roadmap-grid').parentElement;
-  const availW=outer.clientWidth||320;
-  const sz=Math.max(22, Math.floor((availW - GAP*(SHOW-1)) / SHOW));
-  const fs=Math.max(9, Math.floor(sz*0.42));
-  // Apply CSS vars to container
-  outer.style.setProperty('--rm-sz', sz+'px');
-  outer.style.setProperty('--rm-gap', GAP+'px');
-  outer.style.setProperty('--rm-fs', fs+'px');
+  const cols=buildRoadmapCols(stCurrentTab);
+  const isSB=stCurrentTab==='sb';
 
   let html='';
-  allCols.forEach(col=>{
+  cols.forEach(col=>{
     html+='<div class="st-rm-col">';
-    col.forEach(({r,type})=>{
+    col.forEach(({r,side})=>{
       const s=getSum(r);
+      const triple=isTriple(r);
       let cls,label;
-      if(type==='T'){cls='rm-bubble rm-triple';label=s;}
-      else if(type==='S'){cls='rm-bubble rm-small';label=s;}
-      else if(type==='B'){cls='rm-bubble rm-big';label=s;}
-      else if(type==='O'){cls='rm-bubble rm-odd';label=s;}
-      else{cls='rm-bubble rm-even';label=s;}
-      html+=`<div class="${cls}" title="${r.join('-')}=${s}">${label}</div>`;
+      if(triple){
+        cls='rm-bubble rm-triple';
+        label=`T${s}`;
+      } else if(isSB){
+        cls=side==='S'?'rm-bubble rm-small':'rm-bubble rm-big';
+        label=s;
+      } else {
+        cls=side==='O'?'rm-bubble rm-odd':'rm-bubble rm-even';
+        label=s;
+      }
+      html+=`<div class="${cls}">${label}</div>`;
     });
     html+='</div>';
   });
 
   const grid=document.getElementById('st-roadmap-grid');
   grid.innerHTML=html||'<div style="color:var(--txt3);font-size:12px;padding:8px 0;">No data yet</div>';
-  // Scroll so the newest (rightmost) 14 cols are visible on open
+  // Auto-scroll to right (newest)
+  const outer=grid.parentElement;
   requestAnimationFrame(()=>{ outer.scrollLeft=outer.scrollWidth; });
-  // Triple alert handled globally by triggerTripleCheck()
-}
-
-
-/* ═══ TRIPLE ALERT LOGIC ═══ */
-// tripleAlertState:
-//   'idle'      = waiting for 12 cols after a triple
-//   'active'    = alert is showing (window: cols 12–15)
-//   'dismissed' = user tapped Got It — hide but keep badge until window closes or new triple
-//   'expired'   = window of 4 cols passed, cycle done
-let tripleAlertState = 'idle';
-let tripleAlertColsAtTrigger = 0; // colsAfter value when alert first fired
-
-function setTripleBadge(on){
-  const btn = document.getElementById('nb-stats');
-  if(btn) btn.classList.toggle('has-alert', on);
-}
-
-function checkTripleAlert(allColsArg){
-  const allCols = allColsArg || buildRoadmapCols('sb');
-
-  // Find last Triple column index
-  let lastTripleIdx = -1;
-  for(let i = allCols.length - 1; i >= 0; i--){
-    if(allCols[i] && allCols[i][0] && allCols[i][0].type === 'T'){
-      lastTripleIdx = i; break;
-    }
-  }
-
-  const overlay = document.getElementById('triple-alert-overlay');
-  if(!overlay) return;
-
-  // No triple → reset everything
-  if(lastTripleIdx < 0){
-    overlay.classList.remove('show');
-    setTripleBadge(false);
-    tripleAlertState = 'idle';
-    return;
-  }
-
-  const colsAfter = allCols.length - 1 - lastTripleIdx;
-
-  // Update counter inside alert
-  const el = document.getElementById('ta-col-count');
-  if(el) el.textContent = colsAfter;
-
-  // New Triple hit → reset cycle
-  if(colsAfter === 0){
-    tripleAlertState = 'idle';
-    tripleAlertColsAtTrigger = 0;
-    overlay.classList.remove('show');
-    setTripleBadge(false);
-    return;
-  }
-
-  // ── WINDOW: cols 12 to 15 (4-col window) ──
-  const windowOpen  = colsAfter >= 12;
-  const windowClose = colsAfter >= 16;
-
-  if(windowClose){
-    // Window expired — cycle done, hide everything
-    overlay.classList.remove('show');
-    setTripleBadge(false);
-    tripleAlertState = 'expired';
-    return;
-  }
-
-  if(windowOpen){
-    if(tripleAlertState === 'idle'){
-      // First time entering window — show alert
-      tripleAlertState = 'active';
-      tripleAlertColsAtTrigger = colsAfter;
-      overlay.classList.add('show');
-      setTripleBadge(true);
-    } else if(tripleAlertState === 'dismissed'){
-      // User dismissed but window still open — keep badge, no popup
-      setTripleBadge(true);
-    } else if(tripleAlertState === 'active'){
-      // Still showing — keep it
-      setTripleBadge(true);
-    }
-  }
-}
-
-function triggerTripleCheck(){
-  const cols = buildRoadmapCols('sb');
-  checkTripleAlert(cols);
-}
-
-function closeTripleAlert(e){
-  if(e && e.target !== document.getElementById('triple-alert-overlay')) return;
-  // Mark dismissed — badge stays, popup hides
-  tripleAlertState = 'dismissed';
-  document.getElementById('triple-alert-overlay').classList.remove('show');
-  // Badge stays so user knows alert is still active
-}
-
-
-/* ═══════════════════════════════════════════════
-   ADJACENT SIGNAL SYSTEM
-   Logic: Last result X → adjacent zone (X-2 to X+2, clamped 4-17)
-          Cross with (last-1 result) adjacent zone
-          Calculate historical hit rate from data
-          If hit rate ≥ threshold → show signal popup
-   ════════════════════════════════════════════════ */
-
-const SIG_MIN_DATA = 20;
-
-/* ══════════════════════════════════════════════════════════════
-   PATTERN ENGINE — Data-driven, no assumptions
-   ─────────────────────────────────────────────────────────────
-   Signal 1 (35%): Direct follow-up frequency
-     X ගිය විට historically most frequent next numbers
-
-   Signal 2 (30%): Diff-sequence pattern matching
-     Last diffs (d1,d2) same pattern found → predict next diff
-
-   Signal 3 (20%): 2-gram follow-up
-     (prev→last) sequence → most frequent next
-
-   Signal 4 (15%): Arithmetic progression detection
-     d1,d2 form arithmetic sequence → extrapolate d3
-
-   Output: scored candidate list, sorted by confidence
-   ══════════════════════════════════════════════════════════════ */
-
-function computeSignal(){
-  if(history.length < SIG_MIN_DATA) return null;
-
-  const sums  = history.map(r=>r[0]+r[1]+r[2]); // newest first
-  const seq   = sums.slice().reverse();           // oldest first
-  const N     = seq.length;
-  const last  = sums[0];
-  const prev2 = sums[1]||last;
-  const prev3 = sums[2]||prev2;
-  const prev4 = sums[3]||prev3;
-
-  const d1 = last-prev2;
-  const d2 = prev2-prev3;
-  const d3 = prev3-prev4;
-
-  const scores={};
-  for(let s=4;s<=17;s++) scores[s]=0;
-
-  /* ══ SIGNAL 1: Transition Matrix (w=5) ══
-     last ගිය කොට historically ගිය numbers     */
-  const transRow={};
-  let transTotal=0;
-  for(let i=0;i<N-1;i++){
-    if(seq[i]===last && seq[i+1]>=4 && seq[i+1]<=17){
-      const w=Math.pow(0.98,N-1-i);
-      transRow[seq[i+1]]=(transRow[seq[i+1]]||0)+w;
-      transTotal+=w;
-    }
-  }
-  if(transTotal>0){
-    const mx=Math.max(...Object.values(transRow),0.001);
-    for(let s=4;s<=17;s++) if(transRow[s]) scores[s]+=(transRow[s]/mx)*100*5;
-  }
-
-  /* ══ SIGNAL 2: 3-gram Sequence Memory (w=6) ══ */
-  const key3=`${prev3},${prev2},${last}`;
-  const mem3={};let m3=0;
-  for(let i=3;i<N;i++){
-    if(`${seq[i-3]},${seq[i-2]},${seq[i-1]}`===key3 && seq[i]>=4&&seq[i]<=17){
-      const w=Math.pow(0.97,N-1-i)*2;
-      mem3[seq[i]]=(mem3[seq[i]]||0)+w; m3++;
-    }
-  }
-  if(m3>0){
-    const mx=Math.max(...Object.values(mem3),0.001);
-    for(let s=4;s<=17;s++) if(mem3[s]) scores[s]+=(mem3[s]/mx)*100*6;
-  }
-
-  /* ══ SIGNAL 3: 2-gram (w=4) ══ */
-  const key2=`${prev2},${last}`;
-  const mem2={};let m2=0;
-  for(let i=2;i<N;i++){
-    if(`${seq[i-2]},${seq[i-1]}`===key2 && seq[i]>=4&&seq[i]<=17){
-      const w=Math.pow(0.97,N-1-i);
-      mem2[seq[i]]=(mem2[seq[i]]||0)+w; m2++;
-    }
-  }
-  if(m2>0){
-    const mx=Math.max(...Object.values(mem2),0.001);
-    for(let s=4;s<=17;s++) if(mem2[s]) scores[s]+=(mem2[s]/mx)*100*4;
-  }
-
-  /* ══ SIGNAL 4: Delta Pattern (w=5) ══ */
-  const dmatch={};let dm=0;
-  for(let i=4;i<N;i++){
-    const pd3=seq[i-3]-seq[i-4],pd2=seq[i-2]-seq[i-3],pd1=seq[i-1]-seq[i-2];
-    if(pd3===d3&&pd2===d2&&pd1===d1&&seq[i]>=4&&seq[i]<=17){
-      const w=Math.pow(0.97,N-1-i)*2;
-      dmatch[seq[i]]=(dmatch[seq[i]]||0)+w; dm++;
-    }
-  }
-  if(dm>0){
-    const mx=Math.max(...Object.values(dmatch),0.001);
-    for(let s=4;s<=17;s++) if(dmatch[s]) scores[s]+=(dmatch[s]/mx)*100*5;
-  } else {
-    // fallback: 2-diff
-    for(let i=3;i<N;i++){
-      if(seq[i-2]-seq[i-3]===d2&&seq[i-1]-seq[i-2]===d1&&seq[i]>=4&&seq[i]<=17)
-        scores[seq[i]]+=Math.pow(0.97,N-1-i)*15;
-    }
-  }
-
-  /* ══ SIGNAL 5: Center Weight (w=4) ══ */
-  for(let s=4;s<=17;s++) scores[s]+=Math.max(0,10-Math.abs(s-10.5))*4;
-
-  /* ══ SIGNAL 6: Arithmetic Growth (w=3) ══ */
-  let arithPred=null,arithDesc='';
-  const diffStep=d1-d2;
-  if(d2===d3+1&&d1===d2+1){
-    arithPred=last+(d1+1);
-    arithDesc=`Growth pattern → next diff ${d1+1<0?d1+1:'+'+( d1+1)} → <b>${arithPred}</b>`;
-    if(arithPred>=4&&arithPred<=17) scores[arithPred]+=100*3;
-  } else if(d1===d2){
-    arithPred=last+d1;
-    arithDesc=`Constant diff ${d1<0?d1:'+'+d1} → <b>${arithPred>=4&&arithPred<=17?arithPred:'OOR'}</b>`;
-    if(arithPred>=4&&arithPred<=17) scores[arithPred]+=60*3;
-  } else {
-    const ext=last+d1+diffStep;
-    arithDesc=`Extrapolated → ~<b>${ext>=4&&ext<=17?ext:'OOR'}</b>`;
-    if(ext>=4&&ext<=17) scores[ext]+=30*3;
-    arithPred=ext;
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     SIGNAL 7: Rolling Window Context Match (w=8) — NEW
-     ──────────────────────────────────────────────────────────
-     ඔබ කිව්ව pattern: [4,7,9,11] as a unit
-     Find exact or SIMILAR windows in history → predict next
-
-     Similarity: window ඇතුළේ each number ±1 tolerance
-     → "fuzzy sequence match"
-     Longer match = higher weight
-     Also: if early part of window repeats (4,7 repeat) → boost
-     ══════════════════════════════════════════════════════════ */
-  const WINDOW_SIZES = [5,4,3]; // try longest first
-  const WIN_WEIGHT   = 8;
-  let winMatches=0, winBest=0;
-  const winScores={};
-  for(let s=4;s<=17;s++) winScores[s]=0;
-
-  for(const W of WINDOW_SIZES){
-    if(N < W+1) continue;
-    // Current window (newest W numbers, oldest first)
-    const curWin = seq.slice(N-W, N); // [oldest...newest]
-
-    let foundAny=false;
-    for(let i=W; i<N; i++){
-      // Historical window ending at seq[i-1], next=seq[i]
-      const histWin = seq.slice(i-W, i);
-      const next    = seq[i];
-      if(next<4||next>17) continue;
-
-      // ── Exact match ──
-      const isExact = curWin.every((v,j)=>v===histWin[j]);
-      if(isExact){
-        const w=Math.pow(0.97,N-1-i)*4;
-        winScores[next]=(winScores[next]||0)+w*3;
-        winMatches++; foundAny=true;
-      } else {
-        // ── Fuzzy match: each number within ±1 ──
-        const fuzzyScore = curWin.reduce((acc,v,j)=>{
-          const diff=Math.abs(v-histWin[j]);
-          return acc+(diff===0?1:diff===1?0.6:0);
-        },0)/W; // 0→1
-
-        if(fuzzyScore>=0.7){
-          const w=Math.pow(0.97,N-1-i)*fuzzyScore*2;
-          winScores[next]=(winScores[next]||0)+w;
-          winMatches++; foundAny=true;
-        }
-      }
-    }
-    if(foundAny){ winBest=W; break; } // use longest that matched
-  }
-
-  if(winMatches>0){
-    const mxW=Math.max(...Object.values(winScores),0.001);
-    for(let s=4;s<=17;s++) if(winScores[s]) scores[s]+=(winScores[s]/mxW)*100*WIN_WEIGHT;
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     SIGNAL 8: Sub-sequence Recurrence (w=6) — NEW
-     ──────────────────────────────────────────────────────────
-     ඔබ කිව්ව: "4,7 ද repeat වෙන්න chance"
-     → Early numbers of current window appear later in history
-     → If sub-sequence [4,7] appears again near present,
-        what came after it historically?
-     ══════════════════════════════════════════════════════════ */
-  const SUB_WEIGHT=6;
-  const subScores={};
-  for(let s=4;s<=17;s++) subScores[s]=0;
-  let subMatches=0;
-
-  // Check sub-sequences of length 2 from the last 4 numbers
-  const recentNums=[prev4,prev3,prev2,last].filter(x=>x>=4&&x<=17);
-  const subPairs=[];
-  for(let i=0;i<recentNums.length-1;i++)
-    subPairs.push([recentNums[i],recentNums[i+1]]);
-
-  for(const [a,b] of subPairs){
-    for(let i=1;i<N-1;i++){
-      if(seq[i-1]===a&&seq[i]===b&&seq[i+1]>=4&&seq[i+1]<=17){
-        const w=Math.pow(0.97,N-1-i)*1.5;
-        subScores[seq[i+1]]=(subScores[seq[i+1]]||0)+w;
-        subMatches++;
-      }
-    }
-  }
-  if(subMatches>0){
-    const mxSub=Math.max(...Object.values(subScores),0.001);
-    for(let s=4;s<=17;s++) if(subScores[s]) scores[s]+=(subScores[s]/mxSub)*100*SUB_WEIGHT;
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     SIGNAL 9: Adjacent Cluster (w=3) — Enhanced
-     Last result ±2, weighted by how often each appeared
-     historically after any number within ±1 of last
-     ══════════════════════════════════════════════════════════ */
-  const adjScores={};
-  for(let s=4;s<=17;s++) adjScores[s]=0;
-  for(let i=0;i<N-1;i++){
-    if(Math.abs(seq[i]-last)<=1 && seq[i+1]>=4&&seq[i+1]<=17){
-      const w=Math.pow(0.98,N-1-i);
-      adjScores[seq[i+1]]=(adjScores[seq[i+1]]||0)+w;
-    }
-  }
-  const mxAdj=Math.max(...Object.values(adjScores),0.001);
-  for(let s=4;s<=17;s++) if(adjScores[s]) scores[s]+=(adjScores[s]/mxAdj)*100*3;
-
-  /* ══ Normalize & rank ══ */
-  const maxScore=Math.max(...Object.values(scores),0.001);
-  const ranked=Object.entries(scores)
-    .filter(([s])=>+s>=4&&+s<=17)
-    .map(([s,sc])=>({
-      num:+s,
-      score:sc,
-      conf:Math.round(sc/maxScore*100),
-      isArith:  arithPred!==null&&+s===arithPred,
-      inTrans:  (transRow[+s]||0)>0,
-      inSeq3:   (mem3[+s]||0)>0,
-      inWin:    (winScores[+s]||0)>0,
-      inSub:    (subScores[+s]||0)>0,
-    }))
-    .sort((a,b)=>b.score-a.score);
-
-  const cutoff=Math.max(ranked[3]?.conf||0,15);
-  const primaryBet=ranked.filter(r=>r.conf>=cutoff);
-
-  /* ══ Hit rate ══ */
-  let trials=0,hits=0;
-  for(let i=0;i<N-1;i++){
-    if(seq[i]===last){trials++;
-      if(primaryBet.some(r=>r.num===seq[i+1])) hits++;}
-  }
-  const hitRate=trials>0?Math.round(hits/trials*100):0;
-  const strength=Math.min(99,Math.round(hitRate*0.6+(Math.min(N,300)/300)*40));
-
-  return {
-    lastSum:last,prev2Sum:prev2,prev3Sum:prev3,
-    d1,d2,d3,diffStep,arithPred,arithDesc,
-    primaryBet,
-    s1total:Object.keys(transRow).length,
-    s2matches:m2, s3matches:m3,
-    deltaMcount:dm,
-    winMatches,winBest,
-    subMatches,
-    hitRate,strength,trials,hits,
-    isSignal:primaryBet.length>0,
-    zoneA:primaryBet.slice(0,6).map(r=>r.num),
-    zoneB:[],overlap:[],
-    whyParts:[
-      `Seq: <b>${prev3}→${prev2}→${last}</b> | Δ: ${d3<0?d3:'+'+d3},${d2<0?d2:'+'+d2},${d1<0?d1:'+'+d1}`,
-      `Window(${winBest}): <b>${winMatches}</b> matches | Sub-seq: <b>${subMatches}</b> | 3-gram: <b>${m3}</b> | Δ-pat: <b>${dm}</b>`,
-      arithDesc||'No arithmetic pattern',
-      `Accuracy: <b>${hits}/${trials}</b> = <b>${hitRate}%</b>`,
-    ],
-  };
-}
-
-function renderSignal(){
-  if(history.length < SIG_MIN_DATA){
-    document.getElementById('sig-card').classList.remove('on');
-    return;
-  }
-
-  const sig=computeSignal();
-  if(!sig) return;
-
-  const card=document.getElementById('sig-card');
-  const inlineNums=document.getElementById('sig-inline-nums');
-
-  // Show top candidates inline
-  const topShow=sig.primaryBet.slice(0,6);
-  inlineNums.innerHTML=topShow.map((n,i)=>`
-    <div class="sig-inline-num${i===0?' gold':''}" title="${n.conf}% conf">
-      ${n.num}${n.isArith?'★':''}
-    </div>`).join('')+
-    `<div style="font-size:10px;color:var(--txt3);align-self:center;padding-left:4px;">
-      ${sig.hitRate}% hit | ${sig.s1total}s 
-    </div>`;
-  card.classList.add('on');
-
-  if(sig.isSignal) showSigPopup(sig);
-}
-
-
-function showSigPopup(sig){
-  // Last result
-  document.getElementById('sig-last-num').textContent = sig.lastSum;
-  document.getElementById('sig-last-sb').textContent =
-    `${sig.sumInfo} / ${sig.oeInfo} → Zone: ${sig.zoneA.join(' ')}`;
-  document.getElementById('sig-conf-bar').style.width = sig.hitRate + '%';
-
-  // Strength bar
-  const sf = document.getElementById('sig-strength-fill');
-  const sv = document.getElementById('sig-strength-val');
-  sf.style.width = sig.strength + '%';
-  sf.style.background = sig.strength >= 70 ? '#00e5b0' : sig.strength >= 50 ? '#ffb300' : '#7c6aff';
-  sv.textContent = sig.strength + '%';
-  sv.style.color = sig.strength >= 70 ? 'var(--acc)' : sig.strength >= 50 ? 'var(--acc4)' : 'var(--acc2)';
-
-  // Why text
-  document.getElementById('sig-why').innerHTML = sig.whyParts.join('<br>')+
-    (sig.predicted3>=4&&sig.predicted3<=17
-      ? `<br><b style="color:var(--acc4)">★ Arith prediction: ${sig.predicted3}</b>`
-      : '');
-
-  // Number chips
-  const numsRow = document.getElementById('sig-nums-row');
-  numsRow.innerHTML = sig.primaryBet.slice(0,7).map((n,i) =>{
-    const lvl = n.conf>=70?3:n.conf>=45?2:1;
-    return `<div class="sig-num sig-lv${lvl}" title="conf:${n.conf}%">
-      <div class="sig-num-val">${n.num}${n.isArith?'<span style=\"font-size:8px\">★</span>':''}</div>
-      <div class="sig-num-pct">${n.conf}%</div>
-    </div>`;
-  }).join('');
-
-  // Show popup
-  document.getElementById('sig-overlay').classList.add('show');
-}
-
-function closeSig(){
-  document.getElementById('sig-overlay').classList.remove('show');
-}
-function sigBgClose(e){
-  if(e.target === document.getElementById('sig-overlay')) closeSig();
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   SIGNAL BET TRACKER
-   ── State ──
-   trkState.bets[]  = all completed bets (saved to localStorage)
-   trkState.pending = current placed-but-waiting bet | null
-   ══════════════════════════════════════════════════════════ */
-
-let trkState = { bets:[], pending:null, balance:10000 };
-
-(function trkLoad(){
-  try {
-    const saved = localStorage.getItem('trkState');
-    if (saved) trkState = JSON.parse(saved);
-    // ensure balance input reflects saved balance
-    const bi = document.getElementById('trk-balance');
-    if (bi && trkState.balance) bi.value = trkState.balance;
-  } catch(e) { trkState = {bets:[], pending:null, balance:10000}; }
-})();
-
-function trkSave(){
-  localStorage.setItem('trkState', JSON.stringify(trkState));
-}
-
-/* ── Get current prediction from engine ── */
-function trkGetCurrentPred(){
-  if (history.length < 20) return null;
-  return runPredictionEngine();
-}
-
-/* ── Render current signal preview on Track page ── */
-function renderTrackSignal(){
-  const pred = trkGetCurrentPred();
-  const numsEl  = document.getElementById('trk-sig-nums');
-  const metaEl  = document.getElementById('trk-sig-meta');
-  const roundEl = document.getElementById('trk-sig-round');
-  const placeBtn = document.getElementById('trk-place-btn');
-
-  if (!pred) {
-    numsEl.innerHTML = '<div style="color:var(--txt3);font-size:12px;">Data enter කරන්න (20+ rounds)…</div>';
-    metaEl.innerHTML = '';
-    if (placeBtn) placeBtn.disabled = true;
-    return;
-  }
-
-  roundEl.textContent = 'Round #' + history.length;
-
-  // Show top 5 predicted numbers
-  numsEl.innerHTML = pred.top5.map((r,i) => {
-    const cls = i===0 ? 'tsn-top' : i<=1 ? 'tsn-hi' : 'tsn-norm';
-    const star = r.inAll3 ? '★' : r.inBoth ? '◆' : '';
-    return `<div class="trk-sig-num ${cls}" title="${r.conf}% conf">${r.sum}${star}</div>`;
-  }).join('');
-
-  metaEl.innerHTML = `
-    <span><b>S/B:</b> ${pred.sbRec} ${pred.sbConf}%</span>
-    <span><b>O/E:</b> ${pred.oeRec} ${pred.oeConf}%</span>
-    <span><b>Seq:</b> ${pred.prev3}→${pred.prev2}→${pred.lastSum}</span>
-    <span><b>Matches:</b> 3g:${pred.matches3} 2g:${pred.matches2}</span>`;
-
-  if (placeBtn) placeBtn.disabled = !!trkState.pending;
-}
-
-/* ── Place Bet ── */
-/* ══════════════════════════════════════════════════════════
-   AUTO SIGNAL TRACKER
-   - Every round entered → if signal exists → auto-save pending
-   - Next round entered  → auto-resolve W/L → save to history
-   ══════════════════════════════════════════════════════════ */
-
-function trkSaveSettings(){
-  trkState.betAmt     = +document.getElementById('trk-bet-amt').value  || 100;
-  trkState.startBal   = +document.getElementById('trk-balance').value  || 10000;
-  trkSave();
-}
-
-/* Resolve pending → auto W/L when new round entered */
-
-/* ══════════════════════════════════════════════════════
-   REPLAY — Process imported history to generate W/L
-   For each round i (oldest→newest, starting from round 20):
-     - Generate signal based on rounds 0..i
-     - Check round i+1 as actual
-     - Record W/L
-   Only replays rounds not already in trkState.bets
-   ══════════════════════════════════════════════════════ */
-function trkReplayAll(){
-  if (history.length < 21) return;
-
-  const amt      = trkState.betAmt || +document.getElementById('trk-bet-amt').value || 100;
-  const startBal = trkState.startBal || +document.getElementById('trk-balance').value || 10000;
-  const TOP_N    = 99; // use all signal numbers
-
-  // Build oldest→newest array of sums
-  // history[0] = newest, history[N-1] = oldest
-  const N    = history.length;
-  const seqR = history.slice().reverse(); // [0]=oldest
-
-  // Already-tracked round numbers (roundBefore values)
-  const tracked = new Set(trkState.bets.map(b => b.roundNo));
-
-  // Start fresh for replay — only if no bets yet or explicitly replaying
-  if (trkState.bets.length === 0) {
-    trkState.balance = startBal;
-  }
-
-  let bal = trkState.balance;
-  let newBets = [];
-
-  // i = index in seqR (0=oldest). We need at least 20 rounds to predict.
-  // At position i we have rounds seqR[0..i] = i+1 rounds.
-  // We need i+1 >= 20, so i >= 19. Actual = seqR[i+1].
-  for (let i = 19; i < seqR.length - 1; i++) {
-    const roundNo = i + 1; // 1-based round number at this point
-    if (tracked.has(roundNo)) continue; // skip already tracked
-
-    // Build temp history for prediction at this point (newest first)
-    const tempHistory = seqR.slice(0, i+1).reverse();
-    const tempSums    = tempHistory.map(r => r[0]+r[1]+r[2]);
-    const tempArr     = tempSums.slice().reverse(); // oldest first
-
-    // Run prediction engine with temp data
-    const pred = runPredictionEngineOn(tempHistory, tempSums, tempArr);
-    if (!pred) continue;
-
-    const topNums   = pred.primaryBet ? pred.primaryBet.map(n=>n.num) : (pred.top5||[]).slice(0,TOP_N).map(r=>r.sum);
-    const stake     = topNums.length * amt;
-    const actualSum = seqR[i+1][0] + seqR[i+1][1] + seqR[i+1][2];
-    const isWin     = topNums.includes(actualSum);
-    const payMult   = PAYOUT[actualSum] || 0;
-    const payout    = isWin ? (amt * payMult + amt) : 0;
-    const net       = isWin ? (payout - stake) : -stake;
-    const newBal    = bal + net;
-
-    newBets.push({
-      id        : 0, // renumber after
-      roundNo,
-      seq       : `${pred.prev3}→${pred.prev2}→${pred.lastSum}`,
-      top       : pred.top.sum,
-      predicted : topNums,
-      actualSum,
-      sbRec     : pred.sbRec,
-      oeRec     : pred.oeRec,
-      stake, wl : isWin ? 'W' : 'L',
-      payout    : isWin ? payout : 0,
-      net,
-      balBefore : bal,
-      balAfter  : newBal,
-      matches3  : pred.matches3,
-      matches2  : pred.matches2,
-      ts        : Date.now(),
-    });
-    bal = newBal;
-  }
-
-  if (!newBets.length) return;
-
-  // Merge: existing bets + new bets, sort by roundNo ascending, renumber
-  const allBets = [...trkState.bets, ...newBets]
-    .sort((a,b) => a.roundNo - b.roundNo)
-    .map((b,i) => ({...b, id: i+1}));
-
-  // Reverse to newest-first for display
-  trkState.bets    = allBets.reverse();
-  trkState.balance = bal;
-  trkState.pending = null;
-  trkSave();
-}
-
-/* Standalone prediction engine that accepts external data arrays */
-function runPredictionEngineOn(tempHistory, tempSums, tempArr){
-  if (tempHistory.length < SIG_MIN_DATA) return null;
-  // Swap globals temporarily to run computeSignal on temp data
-  const _h = history, _a = arr;
-  history = tempHistory;
-  arr     = tempArr;
-  const result = computeSignal();
-  history = _h;
-  arr     = _a;
-  return result;
-}
-
-function trkAutoResolve(){
-  if (!trkState.pending) return;
-  const p = trkState.pending;
-  // history[0] = newest round just entered
-  // p.roundBefore = history.length BEFORE this round was added
-  // So now history.length = p.roundBefore + (rounds added since)
-  // Actual = history[0] = the round entered right after signal
-  if (history.length <= p.roundBefore) return;
-
-  const actualSum = history[0][0] + history[0][1] + history[0][2];
-
-  // WIN = actual sum is in our predicted list
-  const isWin   = p.predicted.includes(actualSum);
-  const payMult = PAYOUT[actualSum] || 0;
-  const stake   = p.predicted.length * p.amt;
-  // Win: payout for winning number + return that 1 bet; lose the rest
-  const winBet  = isWin ? (p.amt * payMult + p.amt) : 0;
-  const net     = isWin ? (winBet - stake) : -stake;
-  const newBal  = p.balBefore + net;
-
-  const bet = {
-    id        : trkState.bets.length + 1,
-    roundNo   : p.roundBefore,
-    seq       : p.prev3+'→'+p.prev2+'→'+p.lastSum,
-    predicted : p.predicted,          // the 2 numbers we bet
-    actualSum,                         // what actually came
-    stake,
-    wl        : isWin ? 'W' : 'L',
-    net,
-    balBefore : p.balBefore,
-    balAfter  : newBal,
-    ts        : p.ts,
-  };
-
-  trkState.bets.unshift(bet);
-  trkState.pending = null;
-  trkState.balance = newBal;
-  trkSave();
-
-  // Flash result on Track page
-  const rc = document.getElementById('trk-last-result');
-  if (rc) {
-    rc.style.display    = 'block';
-    rc.style.background = isWin ? 'rgba(0,229,176,.12)' : 'rgba(255,107,107,.1)';
-    rc.style.border     = isWin ? '1.5px solid rgba(0,229,176,.5)' : '1.5px solid rgba(255,107,107,.4)';
-    rc.innerHTML = isWin
-      ? `<div style="font-size:20px;font-weight:900;color:var(--acc)">✓ WIN</div>
-         <div style="font-size:12px;color:var(--txt2);margin-top:5px;">
-           Bet: <b>${p.predicted.join(' + ')}</b> → Actual: <b style="color:var(--acc)">${actualSum} ★</b><br>
-           Net: <b style="color:#00e676">+${Math.round(net).toLocaleString()}</b> &nbsp;|&nbsp; Bal: <b>${Math.round(newBal).toLocaleString()}</b>
-         </div>`
-      : `<div style="font-size:20px;font-weight:900;color:var(--acc3)">✕ LOSS</div>
-         <div style="font-size:12px;color:var(--txt2);margin-top:5px;">
-           Bet: <b>${p.predicted.join(' + ')}</b> → Actual: <b style="color:#ff6b6b">${actualSum}</b><br>
-           Net: <b style="color:#ff6b6b">${Math.round(net).toLocaleString()}</b> &nbsp;|&nbsp; Bal: <b>${Math.round(newBal).toLocaleString()}</b>
-         </div>`;
-    setTimeout(()=>{ if(rc) rc.style.display='none'; }, 6000);
-  }
-
-  toast(
-    isWin
-      ? '📈 WIN ★'+actualSum+' net +'+Math.round(net).toLocaleString()
-      : '📉 LOSS — actual '+actualSum+' (bet: '+p.predicted.join(',')+') net '+Math.round(net).toLocaleString(),
-    isWin ? 'ok' : 'err'
-  );
-
-  renderTrackTable();
-  renderTrackSummary();
-}
-
-/* After every round: auto-generate + save signal for NEXT round */
-function trkAutoSaveSignal(){
-  if (history.length < SIG_MIN_DATA) return;
-  if (trkState.pending) return;
-
-  const sig = trkGetCurrentPred(); // returns computeSignal() result
-  if (!sig || !sig.primaryBet || !sig.primaryBet.length) return;
-
-  const amt = +document.getElementById('trk-bet-amt').value || trkState.betAmt || 100;
-  const bal = trkState.balance || +document.getElementById('trk-balance').value || 10000;
-
-  // ALL signal numbers — same as what Input page shows
-  const nums = sig.primaryBet.map(n => n.num);
-
-  trkState.pending = {
-    roundBefore : history.length,
-    lastSum     : sig.lastSum,
-    prev2       : sig.prev2Sum,
-    prev3       : (history.length >= 3 ? history[2][0]+history[2][1]+history[2][2] : sig.prev2Sum),
-    predicted   : nums,
-    amt,
-    stake       : nums.length * amt,
-    balBefore   : bal,
-    ts          : Date.now(),
-  };
-  trkSave();
-}
-
-/* Called on every new round from refreshAll */
-function trkAutoCheck(){
-  // 1. Resolve previous pending signal (if next round now available)
-  if (trkState.pending && history.length > trkState.pending.roundBefore) {
-    trkAutoResolve();
-  }
-  // 2. Generate + save new signal for upcoming round
-  trkAutoSaveSignal();
-  // 3. Refresh UI
-  renderTrackSignal();
-  renderTrackSummary();
-}
-
-/* Render current pending signal */
-function renderTrackSignal(){
-  const numsEl  = document.getElementById('trk-sig-nums');
-  const metaEl  = document.getElementById('trk-sig-meta');
-  const roundEl = document.getElementById('trk-sig-round');
-
-  if (!trkState.pending) {
-    numsEl.innerHTML = `<div style="color:var(--txt3);font-size:12px;padding:8px 0;">
-      Rounds enter කරන ගමන් signal auto-generate වෙනවා…
-    </div>`;
-    metaEl.innerHTML = '';
-    if(roundEl) roundEl.textContent = 'Round #—';
-    return;
-  }
-
-  const p = trkState.pending;
-  if(roundEl) roundEl.textContent = 'Round #' + p.roundBefore + ' → next watching';
-
-  // Show ALL predicted numbers as bet chips
-  const colors = ['rgba(0,229,176,.18)','rgba(255,179,0,.12)','rgba(124,106,255,.15)',
-                   'rgba(255,107,107,.12)','rgba(0,188,212,.12)'];
-  const borders= ['rgba(0,229,176,.7)','rgba(255,179,0,.5)','rgba(124,106,255,.5)',
-                   'rgba(255,107,107,.4)','rgba(0,188,212,.4)'];
-  const txtcols= ['var(--acc)','var(--acc4)','var(--acc2)','var(--acc3)','#00bcd4'];
-
-  numsEl.innerHTML = `
-    <div style="width:100%;">
-      <div style="font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
-                  color:var(--txt3);margin-bottom:10px;">🎯 BET THESE NUMBERS (${p.predicted.length})</div>
-      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;">
-        ${p.predicted.map((n, i) => `
-          <div style="
-            flex:1;min-width:50px;
-            background:${colors[i]||'rgba(255,255,255,.06)'};
-            border:2px solid ${borders[i]||'rgba(255,255,255,.2)'};
-            border-radius:12px;padding:10px 5px;text-align:center;
-          ">
-            <div style="font-size:8px;font-weight:700;color:var(--txt3);margin-bottom:3px;">
-              ${i===0?'★ TOP':'#'+(i+1)}
-            </div>
-            <div style="font-size:32px;font-weight:900;color:${txtcols[i]||'var(--txt)'};line-height:1;">
-              ${n}
-            </div>
-            <div style="font-size:9px;color:var(--txt2);margin-top:3px;">
-              ${n<=10?'S':'B'}/${n%2===1?'O':'E'}
-            </div>
-          </div>`).join('')}
-      </div>
-      <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;
-                  padding:9px 12px;display:flex;justify-content:space-between;align-items:center;
-                  flex-wrap:wrap;gap:6px;">
-        <span style="font-size:11px;color:var(--txt2);">
-          Last: <b style="color:var(--txt);">${p.lastSum}</b>
-        </span>
-        <span style="font-size:11px;color:var(--txt2);">
-          Stake: <b style="color:var(--acc);">${p.stake.toLocaleString()}</b>
-        </span>
-        <span style="font-size:10px;color:var(--acc4);font-weight:700;">⏳ Auto W/L pending…</span>
-      </div>
-    </div>`;
-
-  metaEl.innerHTML = '';
-}
-
-/* Render history table */
-function renderTrackTable(){
-  const tbody = document.getElementById('trk-tbody');
-  if (!trkState.bets.length) {
-    tbody.innerHTML = `<tr><td colspan="9" style="color:var(--txt3);padding:16px;text-align:center;">
-      Auto-tracking active — next round enter කරන ගමන් result appear වෙනවා
-    </td></tr>`;
-    return;
-  }
-
-  tbody.innerHTML = trkState.bets.map((b,i) => {
-    const isNew  = i === 0;
-    const wlCls  = b.wl==='W' ? 'trk-w' : 'trk-l';
-    const netFmt = b.net >= 0 ? '+'+Math.round(b.net).toLocaleString() : Math.round(b.net).toLocaleString();
-    const hit    = b.predicted.includes(b.actualSum);
-    const hitMark = hit ? ' ★' : '';
-    return `<tr class="${isNew?'trk-new ':''} ${wlCls}">
-      <td style="font-weight:700;">${b.id}</td>
-      <td style="font-size:9px;color:var(--txt3);max-width:55px;">${b.seq}</td>
-      <td style="color:var(--acc);font-weight:900;">${b.top}</td>
-      <td style="font-size:11px;font-weight:800;color:var(--acc4);">${b.predicted.join(' + ')}</td>
-      <td style="font-weight:900;">${b.actualSum}${hitMark}</td>
-      <td style="font-size:10px;">${b.stake}</td>
-      <td style="font-weight:900;">${b.wl}</td>
-      <td style="font-weight:800;">${netFmt}</td>
-      <td style="font-size:10px;">${Math.round(b.balAfter).toLocaleString()}</td>
-    </tr>`;
-  }).join('');
-}
-
-/* Render summary */
-function renderTrackSummary(){
-  const bets   = trkState.bets;
-  const tot    = bets.length;
-  const wins   = bets.filter(b=>b.wl==='W').length;
-  const losses = tot - wins;
-  const wpct   = tot > 0 ? Math.round(wins/tot*100) : null;
-  const net    = bets.reduce((a,b)=>a+b.net, 0);
-
-  document.getElementById('trk-tot').textContent  = tot;
-  document.getElementById('trk-wins').textContent = wins;
-  document.getElementById('trk-loss').textContent = losses;
-  document.getElementById('trk-wpct').textContent = wpct !== null ? wpct+'%' : '—';
-  document.getElementById('trk-wpct').style.color = wpct >= 55 ? '#00e676' : wpct >= 45 ? '#ffb300' : '#ff6b6b';
-
-  const netEl  = document.getElementById('trk-net');
-  netEl.textContent = tot ? (net>=0?'+':'')+Math.round(net).toLocaleString() : '—';
-  netEl.style.color = net >= 0 ? '#00e676' : '#ff6b6b';
-
-  const pct  = wpct || 0;
-  const fill = document.getElementById('trk-roi-fill');
-  const val  = document.getElementById('trk-roi-val');
-  if(fill){ fill.style.width=pct+'%'; fill.style.background=pct>=55?'#00e5b0':pct>=45?'#ffb300':'#ff6b6b'; }
-  if(val){ val.textContent=wpct!==null?wpct+'%':'—'; val.style.color=pct>=55?'var(--acc)':pct>=45?'var(--acc4)':'var(--acc3)'; }
-
-  const hc = document.getElementById('trk-hist-count');
-  if(hc) hc.textContent = tot+' results'+(trkState.pending?' + 1 pending':'');
-}
-
-/* Full render */
-function renderTrack(){
-  renderTrackSignal();
-  renderTrackTable();
-  renderTrackSummary();
-}
-
-/* Clear */
-function trkClearAll(){
-  if(!confirm('Signal tracking history clear කරන්නද?')) return;
-  const amt = +document.getElementById('trk-bet-amt').value || 100;
-  const bal = +document.getElementById('trk-balance').value || 10000;
-  trkState = { bets:[], pending:null, balance:bal, betAmt:amt, startBal:bal };
-  trkSave();
-  renderTrack();
-  toast('Cleared','ok');
-}
-
-function trkGetCurrentPred(){
-  if(history.length < SIG_MIN_DATA) return null;
-  return computeSignal(); // same system as Input page signal
-}
-
-
-/* ═══════════════════════════════════════════════════════
-   ML BACKEND API INTEGRATION
-   Set ML_API_URL to your Render.com URL after deploy
-   ═══════════════════════════════════════════════════════ */
-
-let ML_API_URL = localStorage.getItem('mlApiUrl') || '';
-let mlPredCache = null;  // cache last ML prediction
-let mlPredRound = -1;    // which round it was for
-
-function setMlApiUrl(url){
-  ML_API_URL = url.trim().replace(/\/+$/, '');
-  localStorage.setItem('mlApiUrl', ML_API_URL);
-  toast('✓ ML API URL saved', 'ok');
-  runMlPrediction();
-}
-
-async function runMlPrediction(){
-  if(!ML_API_URL || history.length < 20) return;
-  if(mlPredRound === history.length) return; // cached
-
-  try{
-    const sums = history.map(r=>r[0]+r[1]+r[2]);
-    const res  = await fetch(ML_API_URL+'/predict',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({history: sums, top_n: 6})
-    });
-    if(!res.ok) throw new Error('API '+res.status);
-    const data = await res.json();
-    mlPredCache = data;
-    mlPredRound = history.length;
-    renderMlBadge(data);
-  } catch(e){
-    console.warn('ML API:', e.message);
-  }
-}
-
-function renderMlBadge(data){
-  if(!data || !data.predictions) return;
-  const top = data.predictions[0];
-  if(!top) return;
-  const meta = data.meta || {};
-
-  // Update AI page ML section
-  const el = document.getElementById('ml-pred-box');
-  if(!el) return;
-
-  const nums = data.predictions.slice(0,6);
-  el.innerHTML = `
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-      <div style="width:8px;height:8px;border-radius:50%;background:#7c6aff;
-        box-shadow:0 0 8px #7c6aff;animation:sigPulse .7s infinite alternate;"></div>
-      <span style="font-size:11px;font-weight:800;color:var(--acc2);">ML BACKEND ACTIVE</span>
-      <span style="font-size:10px;color:var(--txt3);">${meta.rounds||0} rounds | ${meta.signals||9} signals</span>
-    </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-      ${nums.map((n,i)=>`
-        <div style="
-          flex:1;min-width:44px;text-align:center;
-          background:${i===0?'rgba(124,106,255,.2)':'rgba(124,106,255,.08)'};
-          border:1.5px solid ${i===0?'rgba(124,106,255,.7)':'rgba(124,106,255,.25)'};
-          border-radius:10px;padding:8px 4px;
-        ">
-          <div style="font-size:8px;color:var(--txt3);">${i===0?'★TOP':'#'+(i+1)}</div>
-          <div style="font-size:24px;font-weight:900;color:${i===0?'var(--acc2)':'var(--txt)'};">${n.num}</div>
-          <div style="font-size:9px;color:var(--txt2);">${n.conf}%</div>
-        </div>`).join('')}
-    </div>
-    <div style="font-size:10px;color:var(--txt2);line-height:1.7;">
-      Seq: <b>${meta.seq||'—'}</b> | Δ: <b>${meta.diffs||'—'}</b><br>
-      3-gram: <b>${meta.m3_matches||0}</b> | Window: <b>${meta.win_best||0}-gram(${meta.win_matches||0})</b> | Δ-pat: <b>${meta.delta_matches||0}</b><br>
-      History accuracy: <b style="color:${(meta.hit_rate||0)>=50?'#00e676':'#ff6b6b'}">${meta.hit_rate||0}%</b>
-      ${meta.arith_pred?`| Arith: <b style="color:var(--acc4)">${meta.arith_pred}</b>`:''}
-    </div>`;
-}
-
-// Auto-run ML on each new round
-function triggerMlCheck(){
-  if(ML_API_URL) runMlPrediction();
 }
 
 /* ═══ LIVE COMPUTE ═══ */
@@ -2929,595 +1358,14 @@ function goTo(id){
   if(id==='ana'){renderPat();renderBB();}
   if(id==='bet'){computeBet(lastBA,lastSB);}
   if(id==='stats'){renderStatistics();}
-  if(id==='ai'){renderAiSnapshot();renderPrediction();}
-  if(id==='track'){renderTrack();}
 }
 
-
-/* ═══ AI ANALYSIS ═══ */
-let aiSelectedType = 'pattern';
-
-/* ═══════════════════════════════════════════════════════════
-   PREDICTION ENGINE v2 — Deep Sequence Pattern Matching
-   ────────────────────────────────────────────────────────
-   SIGNAL 1 (30%): N-gram sequence matching
-     • 3-gram: last 3 results sequence → find all historical
-       occurrences → vote on what came next
-     • 2-gram: last 2 results → same
-     • 1-gram: last result (Markov, recency-weighted)
-   SIGNAL 2 (20%): Direction pattern
-     • Was sequence going UP/DOWN/FLAT?
-     • When same direction pattern occurred historically,
-       what did the NEXT step do?
-   SIGNAL 3 (20%): Adjacent zone overlap
-     • ±2 zone of last 3 results → intersection = strong zone
-   SIGNAL 4 (15%): Frequency bias (last 40, decay-weighted)
-   SIGNAL 5 (10%): S/B momentum (last 10)
-   SIGNAL 6 (5%):  Triple cycle boost
-   ═══════════════════════════════════════════════════════════ */
-
-function clamp417(n){ return n >= 4 && n <= 17; }
-
-function runPredictionEngine() {
-  if (history.length < 20) return null;
-
-  const sums   = history.map(r => r[0]+r[1]+r[2]); // [0]=newest
-  const seq    = sums.slice().reverse();             // [0]=oldest
-  const Ns     = seq.length;
-  const lastSum = sums[0];
-  const prev2   = sums[1] || lastSum;
-  const prev3   = sums[2] || prev2;
-
-  /* ── SIGNAL A: Adjacent zone of last result ──
-     Numbers within ±2 of lastSum (clamped 4-17)              */
-  const zone = [];
-  for (let d = -2; d <= 2; d++) {
-    const n = lastSum + d;
-    if (n >= 4 && n <= 17) zone.push(n);
-  }
-
-  /* ── SIGNAL B: Historical frequency — when lastSum appeared,
-     what number came next most often? (recency-weighted)      */
-  const freq = {};
-  for (let s = 4; s <= 17; s++) freq[s] = 0;
-  let matches1 = 0;
-  for (let i = 0; i < Ns - 1; i++) {
-    if (seq[i] === lastSum) {
-      const next = seq[i + 1];
-      if (next >= 4 && next <= 17) {
-        // Weight recent occurrences more
-        freq[next] += Math.pow(0.97, Ns - 1 - i);
-        matches1++;
-      }
-    }
-  }
-
-  /* ── SIGNAL C: 2-gram — when (prev2 → lastSum) occurred,
-     what came next?                                            */
-  const freq2 = {};
-  for (let s = 4; s <= 17; s++) freq2[s] = 0;
-  let matches2 = 0;
-  for (let i = 1; i < Ns - 1; i++) {
-    if (seq[i] === lastSum && seq[i-1] === prev2) {
-      const next = seq[i + 1];
-      if (next >= 4 && next <= 17) {
-        freq2[next] += Math.pow(0.97, Ns - 1 - i) * 2;
-        matches2++;
-      }
-    }
-  }
-
-  /* ── 3-gram ── */
-  const freq3 = {};
-  for (let s = 4; s <= 17; s++) freq3[s] = 0;
-  let matches3 = 0;
-  for (let i = 2; i < Ns - 1; i++) {
-    if (seq[i] === lastSum && seq[i-1] === prev2 && seq[i-2] === prev3) {
-      const next = seq[i + 1];
-      if (next >= 4 && next <= 17) {
-        freq3[next] += Math.pow(0.97, Ns - 1 - i) * 3;
-        matches3++;
-      }
-    }
-  }
-
-  /* ── Pick best pattern source ── */
-  let patFreq = freq;  // default: 1-gram
-  if (matches3 >= 2) patFreq = freq3;
-  else if (matches2 >= 3) patFreq = freq2;
-
-  // Sort by pattern frequency
-  const byPattern = Object.entries(patFreq)
-    .sort((a, b) => b[1] - a[1])
-    .map(([s]) => +s);
-
-  /* ── SELECT FINAL 2 NUMBERS ──
-     #1: number in zone AND top of pattern → strongest
-     #2: next best from pattern OR zone
-     Logic: intersection first, then fallback               */
-  const zoneSet = new Set(zone);
-
-  // Numbers in zone, sorted by pattern score
-  const zoneByPattern = zone
-    .map(n => ({ n, score: patFreq[n] || 0 }))
-    .sort((a, b) => b.score - a.score);
-
-  let pick1, pick2;
-
-  // Pick1: highest pattern score that is also in zone
-  const inBoth = zoneByPattern.filter(x => x.score > 0);
-  if (inBoth.length >= 1) {
-    pick1 = inBoth[0].n;
-    // Pick2: either next in-zone-pattern, or top pattern overall not same as pick1
-    if (inBoth.length >= 2) {
-      pick2 = inBoth[1].n;
-    } else {
-      // top pattern number not in zone, not same as pick1
-      pick2 = byPattern.find(n => n !== pick1) || zone.find(n => n !== pick1) || pick1 + 1;
-    }
-  } else {
-    // No pattern match in zone → use zone center + top pattern
-    pick1 = lastSum; // zone center (last result itself — adjacent)
-    if (pick1 < 4) pick1 = 4;
-    if (pick1 > 17) pick1 = 17;
-    pick2 = byPattern.find(n => n !== pick1) || (pick1 === lastSum + 1 ? lastSum - 1 : lastSum + 1);
-    if (pick2 < 4) pick2 = 4;
-    if (pick2 > 17) pick2 = 17;
-  }
-
-  // Ensure pick2 is different from pick1
-  if (pick2 === pick1) {
-    pick2 = zone.find(n => n !== pick1) || (pick1 < 17 ? pick1 + 1 : pick1 - 1);
-  }
-
-  /* ── Confidence scores ── */
-  const maxFreq = Math.max(...Object.values(patFreq), 0.001);
-  const conf1 = Math.min(95, Math.round(50 + (patFreq[pick1] / maxFreq) * 45));
-  const conf2 = Math.min(90, Math.round(40 + (patFreq[pick2] / maxFreq) * 45));
-
-  /* ── S/B + O/E ── */
-  let recentS=0, recentB=0, chk=0;
-  for (let i=0; i<history.length && chk<10; i++) {
-    const r=history[i];
-    if (r[0]===r[1]&&r[1]===r[2]) continue;
-    (r[0]+r[1]+r[2])<=10 ? recentS++ : recentB++;
-    chk++;
-  }
-  const bMom   = recentB / (recentS + recentB + 0.01);
-  const sbRec  = bMom > 0.5 ? 'Big' : 'Small';
-  const sbConf = Math.round(Math.max(bMom, 1-bMom) * 100);
-  const oTot   = [pick1, pick2].filter(n => n%2===1).length;
-  const oeRec  = oTot >= 1 ? 'Odd' : 'Even';
-  const oeConf = 55;
-
-  /* ── Triple cycle ── */
-  const cols = buildRoadmapCols('sb');
-  let lastTriIdx = -1;
-  for (let i = cols.length-1; i >= 0; i--) {
-    if (cols[i][0].type === 'T') { lastTriIdx = i; break; }
-  }
-  const colsSince = lastTriIdx >= 0 ? cols.length - 1 - lastTriIdx : 999;
-
-  /* ── top5 format for compatibility (only 2 real picks) ── */
-  const top5 = [
-    { sum: pick1, conf: conf1, inAll3: true,  inBoth: true,  inZoneA: true,  isSmall: pick1<=10, isOdd: pick1%2===1 },
-    { sum: pick2, conf: conf2, inAll3: false, inBoth: false, inZoneA: zoneSet.has(pick2), isSmall: pick2<=10, isOdd: pick2%2===1 },
-  ];
-
-  /* ── Signal explanation ── */
-  const signals = [
-    `📍 Last: <b>${lastSum}</b> | Prev: <b>${prev2}</b> | Before: <b>${prev3}</b>`,
-    `🔵 Adjacent zone (±2): <b>${zone.join(', ')}</b>`,
-    `📊 Pattern matches — 1g:<b>${matches1}</b> 2g:<b>${matches2}</b> 3g:<b>${matches3}</b>`,
-    `🎯 #1 pick <b>${pick1}</b> — zone ✓ + pattern score`,
-    `🎯 #2 pick <b>${pick2}</b> — ${zoneSet.has(pick2) ? 'zone ✓' : 'pattern only'}`,
-    `💡 Momentum: <b>${recentB}B / ${recentS}S</b> → <b>${sbRec}</b>`,
-    `🔴 Triple: ${colsSince===999 ? 'No triple yet' : '<b>'+colsSince+'</b> cols since last'}`,
-  ];
-
-  return {
-    top: top5[0],
-    top5,
-    all: top5,
-    sbRec, sbConf, oeRec, oeConf, signals,
-    lastSum, prev2, prev3, colsSince,
-    recentS, recentB, matches1, matches2, matches3,
-    dirMatches: matches2,
-    zoneA: zone, zoneB: [], zoneC: [],
-    dir1: '', dir2: '', dirLabels: {},
-    pick1, pick2, zone,
-  };
-}
-
-
-function renderPrediction() {
-  const statusEl  = document.getElementById('pred-status');
-  const wrapEl    = document.getElementById('pred-nums-wrap');
-  const runBtn    = document.getElementById('ai-run-btn');
-
-  if (history.length < 20) {
-    if (statusEl) statusEl.textContent = `Rounds ${history.length}/20 — ${20-history.length} more needed…`;
-    if (wrapEl) wrapEl.style.display = 'none';
-    if (runBtn) runBtn.style.display = 'none';
-    return;
-  }
-
-  const pred = runPredictionEngine();
-  if (!pred) return;
-
-  if (statusEl) statusEl.textContent = `${history.length} rounds | 3-gram: ${pred.matches3} | 2-gram: ${pred.matches2} | dir: ${pred.dirMatches} matches`;
-  if (wrapEl) wrapEl.style.display = 'block';
-  if (runBtn) runBtn.style.display = 'flex';
-
-  // Top pick
-  document.getElementById('pred-top-num').textContent = pred.top.sum;
-  document.getElementById('pred-top-conf').textContent = pred.top.conf + '%';
-  document.getElementById('pred-top-sb').textContent =
-    (pred.top.isSmall ? 'Small' : 'Big') + ' / ' + (pred.top.isOdd ? 'Odd' : 'Even') +
-    (pred.top.inBoth ? ' ★ Overlap' : pred.top.inZoneA ? ' ◆ Zone' : '');
-
-  // All bars (top 8)
-  const barsEl = document.getElementById('pred-bars');
-  barsEl.innerHTML = pred.all.slice(0, 8).map(r => {
-    const color = r.conf >= 80 ? '#00e5b0' : r.conf >= 60 ? '#ffb300' : r.conf >= 40 ? '#7c6aff' : '#444466';
-    const tag = r.inAll3  ? '<span style="color:#00e5b0;font-size:9px;font-weight:900;"> ★★★</span>' :
-                r.inBoth  ? '<span style="color:#00e5b0;font-size:9px;"> ★★</span>' :
-                r.inZoneA ? '<span style="color:#7c6aff;font-size:9px;"> ◆</span>' : '';
-    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-      <div style="width:26px;font-size:14px;font-weight:900;color:${color};text-align:right;flex-shrink:0;">${r.sum}</div>
-      <div style="flex:1;height:20px;background:var(--s3);border-radius:5px;overflow:hidden;">
-        <div style="height:100%;width:${r.conf}%;background:${color};border-radius:5px;
-          display:flex;align-items:center;padding-left:6px;
-          font-size:10px;font-weight:800;color:#000;transition:width .5s;">
-          ${r.conf >= 30 ? r.conf+'%' : ''}
-        </div>
-      </div>
-      <div style="font-size:10px;color:var(--txt2);min-width:28px;text-align:right;">${r.conf}%</div>
-      ${tag}
-    </div>`;
-  }).join('');
-
-  // S/B + O/E boxes
-  const sboeEl = document.getElementById('pred-sboe');
-  const sbColor = pred.sbRec === 'Small' ? '#ffffff' : '#c8a96e';
-  const oeColor = pred.oeRec === 'Odd'   ? '#a0c8ff' : '#ffb347';
-  sboeEl.innerHTML = `
-    <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;">
-      <div style="font-size:9px;font-weight:700;color:var(--txt3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px;">S / B</div>
-      <div style="font-size:20px;font-weight:900;color:${sbColor};">${pred.sbRec}</div>
-      <div style="font-size:11px;color:var(--txt2);">${pred.sbConf}% confidence</div>
-    </div>
-    <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;">
-      <div style="font-size:9px;font-weight:700;color:var(--txt3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px;">O / E</div>
-      <div style="font-size:20px;font-weight:900;color:${oeColor};">${pred.oeRec}</div>
-      <div style="font-size:11px;color:var(--txt2);">${pred.oeConf}% confidence</div>
-    </div>`;
-
-  // Signal explanations
-  document.getElementById('pred-signals').innerHTML =
-    '<div style="font-size:9px;font-weight:800;color:var(--txt3);letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;">Signal Breakdown</div>' +
-    pred.signals.join('<br>');
-}
-
-/* ── Snapshot bar ── */
-function renderAiSnapshot(){
-  if(!history.length){
-    document.getElementById('ai-snapshot').innerHTML=
-      '<div style="color:var(--txt3);font-size:12px;padding:6px;width:100%;text-align:center;">Data නැහැ — rounds enter කරන්න</div>';
-    return;
-  }
-  const total=history.length;
-  let s=0,b=0,t=0,o=0,e=0;
-  history.forEach(r=>{
-    const sum=r[0]+r[1]+r[2];
-    const tri=r[0]===r[1]&&r[1]===r[2];
-    if(tri)t++;
-    else{ sum<=10?s++:b++; sum%2?o++:e++; }
-  });
-  document.getElementById('ai-snapshot').innerHTML=`
-    <div class="ai-snap-item"><div class="ai-snap-lbl">Rounds</div><div class="ai-snap-val">${total}</div></div>
-    <div class="ai-snap-item"><div class="ai-snap-lbl">Small</div><div class="ai-snap-val" style="color:#fff">${Math.round(s/total*100)}%</div></div>
-    <div class="ai-snap-item"><div class="ai-snap-lbl">Big</div><div class="ai-snap-val" style="color:#c8a96e">${Math.round(b/total*100)}%</div></div>
-    <div class="ai-snap-item"><div class="ai-snap-lbl">Triple</div><div class="ai-snap-val" style="color:#ff4444">${Math.round(t/total*100)}%</div></div>
-    <div class="ai-snap-item"><div class="ai-snap-lbl">Odd</div><div class="ai-snap-val" style="color:#a0c8ff">${Math.round(o/total*100)}%</div></div>`;
-}
-
-/* ── AI Explanation (Claude API) ── */
-function runAiAnalysis(){
-  if(history.length < 20){
-    showAiError('Data අඩුයි — rounds 20+ enter කරන්න.');
-    return;
-  }
-  const pred = runPredictionEngine();
-  if(!pred){ showAiError('Prediction engine error'); return; }
-
-  document.getElementById('ai-loading').classList.add('on');
-  document.getElementById('ai-result').classList.remove('on');
-  document.getElementById('ai-error').classList.remove('on');
-
-  // Pure JS explanation — no API needed
-  setTimeout(()=>{
-    const sums = history.map(r=>r[0]+r[1]+r[2]);
-    const sf={};sums.forEach(s=>sf[s]=(sf[s]||0)+1);
-    const hotSums = Object.entries(sf).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([s,c])=>`${s}(${c}×)`).join(', ');
-
-    // Data quality assessment
-    const quality = history.length >= 200 ? 'ඉතා හොඳ (200+)' : history.length >= 100 ? 'හොඳ (100+)' : history.length >= 50 ? 'මධ්‍යම (50+)' : 'සාධාරණ (20+)';
-    const qualityColor = history.length >= 200 ? '#00e5b0' : history.length >= 100 ? '#ffb300' : history.length >= 50 ? '#7c6aff' : '#ff8888';
-
-    // Confidence interpretation
-    const topConf = pred.top.conf;
-    const confDesc = topConf >= 80 ? 'ඉතා ශක්තිමත්' : topConf >= 60 ? 'ශක්තිමත්' : topConf >= 40 ? 'මධ්‍යම' : 'සාධාරණ';
-
-    // Zone analysis
-    const overlap3 = pred.zoneA.filter(n=>pred.zoneB.includes(n)&&pred.zoneC.includes(n));
-    const overlap2 = pred.zoneA.filter(n=>pred.zoneB.includes(n)&&!pred.zoneC.includes(n));
-    const overlapNums = overlap3.length ? overlap3 : overlap2;
-
-    // Direction
-    const dirMap = {'BU':'↑↑ ශක්තිමත් ලෙස ඉහළ','U':'↑ ඉහළ','F':'→ ස්ථාවර','D':'↓ පහළ','BD':'↓↓ ශක්තිමත් ලෙස පහළ'};
-    const dirNow = dirMap[pred.dir2] || pred.dir2;
-
-    // Momentum
-    const momTotal = pred.recentB + pred.recentS;
-    const momPct = momTotal > 0 ? Math.round(Math.max(pred.recentB,pred.recentS)/momTotal*100) : 50;
-
-    // Build explanation HTML
-    const html = `
-<div class="ai-h">📊 Algorithm විශ්ලේෂණය</div>
-
-<b>Data quality:</b> <span style="color:${qualityColor}">${quality}</span> — ${history.length} rounds විශ්ලේෂණය කළා.<br>
-Sequence pattern matches — 3-gram: <b>${pred.matches3}</b>, 2-gram: <b>${pred.matches2}</b>, Direction: <b>${pred.dirMatches}</b>.
-
-<hr class="ai-sep">
-<div class="ai-h">🎯 Top Prediction — ${pred.top.sum} (${confDesc})</div>
-
-${pred.matches3 >= 3
-  ? `ඔබේ exact sequence <b>${pred.prev3} → ${pred.prev2} → ${pred.lastSum}</b> කලින් data ඇතුළේ <b>${pred.matches3} වතාවක්</b> ආ. ඒ සෑම වතාවකටම ඊළඟ round හි ඒකාකාරිව <b>${pred.top5.slice(0,3).map(r=>r.sum).join(', ')}</b> ආ.`
-  : pred.matches2 >= 3
-  ? `Last 2 sequence <b>${pred.prev2} → ${pred.lastSum}</b> data ඇතුළේ <b>${pred.matches2} වතාවක්</b> ආ. ඒ pattern ඇසුරෙන් top prediction.`
-  : `1-gram Markov analysis: <b>${pred.lastSum}</b> ලැබුණ <b>${pred.matches1} වතාවකට</b> ඊළඟ round data scan කළා.`
-}
-
-${overlapNums.length
-  ? `<br><br>Zone overlap (${overlap3.length?'3-zone ★★★':'2-zone ★★'}): <b>${overlapNums.join(', ')}</b> — last ${overlap3.length?'3':'2'} results ±2 zones intersect.`
-  : ''
-}
-
-<hr class="ai-sep">
-<div class="ai-h">📐 Direction Analysis</div>
-
-Current trend: <b>${dirMap[pred.dir1]||pred.dir1} → ${dirNow}</b><br>
-${pred.dirMatches >= 3
-  ? `මේ direction pattern history ඇතුළේ <b>${pred.dirMatches} වතාවක්</b> ආ — ඒ ඇසුරෙන් prediction reinforce වෙනවා.`
-  : `Direction matches අඩුයි (${pred.dirMatches}) — sequence pattern primary signal ලෙස use.`
-}
-
-<hr class="ai-sep">
-<div class="ai-h">⚡ Next Round Bet Plan</div>
-
-<b>Bet numbers:</b> <span style="color:#00e5b0;font-weight:900;">${pred.top5.slice(0,4).map(r=>r.sum).join(', ')}</span><br>
-<b>S/B:</b> <span style="color:${pred.sbRec==='Small'?'#fff':'#c8a96e'};font-weight:900;">${pred.sbRec}</span> (${pred.sbConf}% confidence) — momentum: ${pred.recentB}B vs ${pred.recentS}S last 10<br>
-<b>O/E:</b> <span style="color:${pred.oeRec==='Odd'?'#a0c8ff':'#ffb347'};font-weight:900;">${pred.oeRec}</span> (${pred.oeConf}% confidence)<br>
-<b>Hot sums overall:</b> ${hotSums}
-
-<hr class="ai-sep">
-<div class="ai-h">⚠️ වැදගත්</div>
-
-${history.length < 50
-  ? '⚠️ Data 50 rounds ට අඩු — patterns තවම stable නොවෙයි. Accuracy improve කරන්න data ගොඩ add කරන්න.'
-  : history.length < 100
-  ? '✓ Data reasonable. 100+ rounds ගිය ගමන් 3-gram matches ගොඩ හොයාගනී — accuracy ↑'
-  : `✓ Data strong (${history.length} rounds). ${pred.matches3 >= 5 ? '3-gram ' + pred.matches3 + ' matches — pattern reliable.' : '2-gram primary signal active.'}`
-}
-${pred.colsSince >= 12 ? `<br>🔴 Triple ${pred.colsSince} cols ගිහිල්ලා — any triple risk elevated.` : ''}`;
-
-    document.getElementById('ai-result-title').textContent = '📊 Deep Analysis';
-    document.getElementById('ai-result-rounds').textContent = history.length+' rounds | '+pred.matches3+' pattern matches';
-    document.getElementById('ai-result-body').innerHTML = html;
-    document.getElementById('ai-result').classList.add('on');
-    document.getElementById('ai-loading').classList.remove('on');
-    document.getElementById('ai-run-btn').disabled = false;
-  }, 300);
-}
-
-function parseAiResponse(text){
-  return text
-    .replace(/[*][*](.+?)[*][*]/g,'<span class="ai-b">$1</span>')
-    .replace(/[*](.+?)[*]/g,'<em>$1</em>')
-    .replace(/^###[ \t]*(.+)$/gm,'<div class="ai-h">$1</div>')
-    .replace(/^##[ \t]*(.+)$/gm,'<div class="ai-h">$1</div>')
-    .replace(/^#[ \t]*(.+)$/gm,'<div class="ai-h">$1</div>')
-    .replace(/^(\d+)[.][ ]/gm,'<br><span class="ai-b">$1.</span> ')
-    .replace(/---/g,'<hr class="ai-sep">')
-    .split('\n\n').join('<br><br>')
-    .split('\n').join('<br>');
-}
-
-function showAiError(msg){
-  const el=document.getElementById('ai-error');
-  el.textContent=msg; el.classList.add('on');
-  document.getElementById('ai-loading').classList.remove('on');
-  document.getElementById('ai-run-btn').disabled=false;
-}
 /* ═══ INIT ═══ */
 window.onload=function(){
-  const savedUrl = localStorage.getItem('mlApiUrl')||'';
-  const inp = document.getElementById('ml-url-input');
-  if(inp && savedUrl) inp.value = savedUrl;
   lastBA=+document.getElementById('betAmt').value;
   lastSB=+document.getElementById('startBal').value;
   bridge();refreshAll();renderBB();liveCompute();updateEiCount();
-  renderTrack();
 };
 </script>
-
-<!-- ═══ TRIPLE ALERT POPUP ═══ -->
-<div class="triple-alert-overlay" id="triple-alert-overlay" onclick="closeTripleAlert(event)">
-  <div class="triple-alert-box">
-    <div class="ta-dice-row">
-      <div class="ta-die">🎲</div>
-      <div class="ta-die">🎲</div>
-      <div class="ta-die">🎲</div>
-    </div>
-    <div class="ta-title">🔴 BET ANY TRIPLE!</div>
-    <div class="ta-sub">Columns 12ක් ගොස් ඇත<br>Triple ගියාට පසු</div>
-    <div class="ta-info">
-      Last Triple ගිය පසු <b id="ta-col-count">12</b> columns ගොස් ඇත.<br>
-      Bet window: columns <b>12–15</b> (4 cols).<br>
-      Triple probability ↑ statistically.
-    </div>
-    <div style="font-size:10px;color:rgba(255,160,160,.6);margin-bottom:8px;">Dismiss කළත් Stats badge active වෙනවා</div>
-    <button class="ta-close" onclick="closeTripleAlert()">✓ Got It — Badge active</button>
-  </div>
-</div>
-
-<!-- ═══════ AI ANALYSIS ═══════ -->
-<div class="pg" id="pg-ai">
-
-  <!-- Header -->
-  <div class="ai-hero">
-    <div class="ai-hero-icon">🧠</div>
-    <div class="ai-hero-text">
-      <div class="ai-hero-title">Prediction Engine</div>
-      <div class="ai-hero-sub">Algorithm + AI — ඔබේ data analyse කරලා next round prediction</div>
-    </div>
-  </div>
-
-  <!-- Live snapshot pills -->
-  <div class="ai-snapshot" id="ai-snapshot"></div>
-
-  <!-- ALGORITHM PREDICTION CARD — always visible, auto-updates -->
-  <div class="card" id="pred-card" style="padding:14px;">
-    <div class="card-title" style="margin-bottom:10px;">⚡ Algorithm Prediction — Next Round</div>
-
-    <div style="font-size:10px;color:var(--txt3);margin-bottom:10px;" id="pred-status">
-      Rounds 20+ enter කරන්න…
-    </div>
-
-    <!-- Predicted numbers with confidence bars -->
-    <div id="pred-nums-wrap" style="display:none;">
-
-      <!-- Top pick highlight -->
-      <div id="pred-top-pick" style="
-        background:rgba(0,229,176,.1);border:1px solid rgba(0,229,176,.3);
-        border-radius:12px;padding:12px;margin-bottom:12px;text-align:center;
-      ">
-        <div style="font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;">🎯 Top Prediction</div>
-        <div style="display:flex;justify-content:center;align-items:baseline;gap:10px;">
-          <div id="pred-top-num" style="font-size:42px;font-weight:900;color:var(--acc);line-height:1;">—</div>
-          <div>
-            <div id="pred-top-conf" style="font-size:20px;font-weight:900;color:var(--acc4);">—%</div>
-            <div id="pred-top-sb" style="font-size:11px;color:var(--txt2);">—</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- All candidate numbers with bars -->
-      <div style="font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;">All Predictions</div>
-      <div id="pred-bars"></div>
-
-      <!-- S/B + O/E recommendation -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;" id="pred-sboe"></div>
-
-      <!-- Signal explanation -->
-      <div id="pred-signals" style="
-        background:var(--s2);border:1px solid var(--border);
-        border-radius:10px;padding:10px;margin-top:10px;
-        font-size:11px;color:var(--txt2);line-height:1.7;
-      "></div>
-
-    </div>
-  </div>
-
-  <!-- AI Explanation button -->
-  <!-- ML Backend section -->
-  <div class="card" id="ml-card" style="padding:14px;flex-shrink:0;">
-    <div class="card-title" style="margin-bottom:10px;">🔬 ML Backend (Render.com)</div>
-    <div id="ml-pred-box" style="color:var(--txt3);font-size:12px;padding:4px 0;">
-      ML API URL set කරන්න ↓
-    </div>
-    <div style="display:flex;gap:8px;margin-top:12px;">
-      <input id="ml-url-input" type="url"
-        placeholder="https://your-app.onrender.com"
-        value=""
-        style="flex:1;background:var(--s2);color:var(--txt);border:1px solid var(--border2);
-               border-radius:var(--r2);padding:9px 10px;font-size:12px;"
-      >
-      <button onclick="setMlApiUrl(document.getElementById('ml-url-input').value)"
-        style="padding:9px 14px;border:1px solid rgba(124,106,255,.4);border-radius:var(--r2);
-               background:rgba(124,106,255,.15);color:var(--acc2);font-size:12px;font-weight:800;cursor:pointer;">
-        Connect
-      </button>
-    </div>
-  </div>
-
-  <button class="ai-run-btn" id="ai-run-btn" onclick="runAiAnalysis()" style="display:none;">
-    <span>📊</span><span>Deep Analysis ගන්න</span>
-  </button>
-
-  <!-- Loading -->
-  <div class="ai-loading" id="ai-loading">
-    <div class="ai-spinner"></div>
-    <div class="ai-loading-text">AI analysing <span class="ai-loading-dots"></span></div>
-  </div>
-
-  <!-- Error -->
-  <div class="ai-error" id="ai-error"></div>
-
-  <!-- AI Result -->
-  <div class="ai-result" id="ai-result">
-    <div class="ai-result-header">
-      <div class="ai-result-title" id="ai-result-title">🤖 AI Analysis</div>
-      <div class="ai-result-rounds" id="ai-result-rounds"></div>
-    </div>
-    <div class="ai-result-body" id="ai-result-body"></div>
-  </div>
-
-</div>
-
-
-<!-- ═══ ADJACENT SIGNAL POPUP ═══ -->
-<div class="sig-overlay" id="sig-overlay" onclick="sigBgClose(event)">
-  <div class="sig-box">
-    <div class="sig-handle"></div>
-    <div class="sig-header">
-      <div class="sig-title-wrap">
-        <div class="sig-dot"></div>
-        <div class="sig-title">📡 SIGNAL — Next Round Suggestion</div>
-      </div>
-      <div class="sig-close-btn" onclick="closeSig()">✕</div>
-    </div>
-
-    <!-- Last result -->
-    <div class="sig-last-row">
-      <div class="sig-last-num" id="sig-last-num">—</div>
-      <div class="sig-last-info">
-        <div class="sig-last-lbl">Last Result → Adjacent Zone</div>
-        <div class="sig-last-sb" id="sig-last-sb">—</div>
-        <div class="sig-conf-bar-wrap">
-          <div class="sig-conf-bar-track"><div class="sig-conf-bar-fill" id="sig-conf-bar" style="width:0%"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Strength meter -->
-    <div class="sig-strength-row">
-      <div class="sig-strength-lbl">Signal Strength</div>
-      <div class="sig-strength-track">
-        <div class="sig-strength-fill" id="sig-strength-fill" style="width:0%"></div>
-      </div>
-      <div class="sig-strength-val" id="sig-strength-val">—</div>
-    </div>
-
-    <!-- Why -->
-    <div class="sig-why" id="sig-why">—</div>
-
-    <!-- Suggested numbers -->
-    <div class="sig-nums-lbl">BET THESE NUMBERS</div>
-    <div class="sig-nums-row" id="sig-nums-row"></div>
-  </div>
-</div>
-
 </body>
 </html>
